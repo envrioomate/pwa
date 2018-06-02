@@ -4,12 +4,14 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import '../node_modules/vuetify/dist/vuetify.min.css';
+import Api from './api/api'
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import Login from './components/Login.vue'
 import LoggedIn from './components/LoggedIn.vue'
 import Landing from './components/Landing.vue'
 import Register from './components/Register.vue'
+import store from './store'
 
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -61,28 +63,9 @@ const saveState = (state) => {
 }
 
 
+
 Vue.use(Vuex); // @see https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart
-const store = new Vuex.Store({
-    state: {
-        userId: (ls ? ls.userId : -1),
-        token: (ls ? ls.token : -1),
-        groupId: (ls ? ls.groupId : -1)
-    },
-    mutations: {
-        setUserId (state, n) {
-            state.userId = n
-            saveState(state);
-        },
-        setToken (state, t) {
-            state.token = t
-            saveState(state);
-        },
-        setGroupId (state, n) {
-            state.groupId = n
-            saveState(state);
-        }
-    },
-})
+
 
 
 Vue.use(Vuetify, {
