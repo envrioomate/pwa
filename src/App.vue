@@ -44,7 +44,7 @@
 			
 			<v-list-tile @click="" to="/challenges" v-if="$store.state.token!=null && $store.state.token!=undefined">
                 <v-list-tile-action>
-                    <v-icon>fa-trophy</v-icon>
+                    <v-icon>grade</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
                     <v-list-tile-title>Challenges</v-list-tile-title>

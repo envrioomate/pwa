@@ -6,6 +6,15 @@
                     <h3 class="display-3">Welcome {{screenName}}</h3>
                     <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
                     <v-divider class="my-3"></v-divider>
+					<v-btn fab large color="info" to="/group">
+						<v-icon>group</v-icon>
+					</v-btn>
+					<v-btn fab large color="orange" to="/challenges">
+						<v-icon>grade</v-icon>
+					</v-btn>
+					<v-btn fab large color="grey" to="/settings">
+						<v-icon>settings</v-icon>
+					</v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -18,6 +27,7 @@
     export default {
         data: () => {
             return {screenName: '(loading)'}
+			return {groupName: '(loading)'}
         },
         methods: {
             fetchUserData: function () {
