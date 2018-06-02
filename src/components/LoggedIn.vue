@@ -15,22 +15,21 @@
 
 <script>
     import axios from 'axios'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
-        data: () => {
-            return {screenName: '(loading)'}
-        },
+        computed: mapGetters({
+            id : 'id',
+            userName : 'userName',
+            screenName : 'screenName',
+            dateCreated : 'dateCreated',
+            emailConfirmed : 'emailConfirmed',
+            isBanned : 'isBanned',
+            group : 'group'
+        }),
         methods: {
             fetchUserData: function () {
-                axios.get("/api/auth/profile",
-                    {
-                        headers: {
-                            "Authorization": "Bearer " + this.$store.state.token
-                        }
-                    }).then((res) => {
-                    console.log("gotten profile: ", res)
-                    this.screenName = res.data.screenName;
-                }).catch((err) => console.log("It broke while retrieving the user profile!", err))
+                this.$store.dispatch('loadProfile')
             }
         },
         created: function (){

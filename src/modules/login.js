@@ -14,8 +14,6 @@ const getters = {
 
 const actions = {
     login({commit}, {email, password}) {
-        console.log("action login with " + email + " " + password )
-
         Api.login(email, password, (res => {
             commit('setUserId',res.data.id)
             commit('setToken',res.data.token)

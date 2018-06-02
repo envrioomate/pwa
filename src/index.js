@@ -51,8 +51,6 @@ const loadState = () => {
     }
 };
 
-const ls = loadState();
-
 const saveState = (state) => {
     try {
         const serializedState = JSON.stringify(state);

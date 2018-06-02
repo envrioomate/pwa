@@ -51,7 +51,13 @@ export default {
             this.$refs.form.reset()
         }
     },
-
+    watch: {
+        loginStatus: function(newStatus) {
+            if(newStatus == "success") {
+                this.$router.push({name: 'loggedin'})
+            }
+        },
+    },
     data: () => ({
         valid: true,
         email: '',
