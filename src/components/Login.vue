@@ -59,6 +59,7 @@
                         console.log(res);
                         this.$store.commit('setUserId', res.data.id);
                         this.$store.commit('setToken', res.data.token);
+						this.$store.commit('setAuthorization', true);
                         this.$router.push({name: 'loggedin'})
                     }).catch((err) => console.log("It broke while logging in", err))
                 }
