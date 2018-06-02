@@ -16,6 +16,10 @@
                             label="Password"
                             required
                     ></v-text-field>
+                    <v-alert :value='loginStatus == "failed"' type="error"      transition="scale-transition"
+                    >
+                        Username or Password not found...
+                    </v-alert>
                     <v-btn
                             :disabled="!valid"
                             @click="login()"
@@ -34,9 +38,9 @@ import axios from 'axios'
 import {mapGetters, mapActions} from 'vuex'
 
 export default {
-
     computed: mapGetters({
-        token: 'token'
+        token: 'token',
+        loginStatus: 'loginStatus'
     }),
     methods: {
         login() {

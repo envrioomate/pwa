@@ -8,7 +8,8 @@ const state = {
 
 const getters = {
     token: state => state.token,
-    userId: state => state.userId
+    userId: state => state.userId,
+    loginStatus: state => state.loginStatus
 }
 
 const actions = {
@@ -33,7 +34,7 @@ const mutations = {
     setToken (state, token) {
         state.token = token;
     },
-    setLoginSattus (state, status) {
+    setLoginStatus (state, status) {
         state.loginStatus = status;
     },
     logout (state) {
