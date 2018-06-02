@@ -24,23 +24,24 @@ const actions = {
     loadProfile({commit, rootState}) {
         let token = rootState.login.token
         console.log(token)
-        Api.fetchUserData(token, (res => {
-            commit('setProfile', res.data)
-        }), (err => {
-
-        }))
+        Api.fetchUserData(token, function (res) {
+            console.log(JSON.stringify(res.data));
+            commit('setProfile', res.data);
+        }, function(err) {
+            console.error(err)
+        });
     }
 }
 
 const mutations = {
-    setProfile (state, data) {
-     state.id = data.id;
-     state.userName = data.userName;
-     state.screenName = data.screenName;
-     state.dateCreated = data.dateCreated;
-     state.emailConfirmed = data.emailConfirmed;
-     state.isBanned = data.isBanned;
-     state.group = data.group;
+    setProfile(state, data) {
+        state.id = data.id;
+        state.userName = data.userName;
+        state.screenName = data.screenName;
+        state.dateCreated = data.dateCreated;
+        state.emailConfirmed = data.emailConfirmed;
+        state.isBanned = data.isBanned;
+        state.group = data.group;
     }
 }
 

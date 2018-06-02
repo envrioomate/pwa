@@ -22,7 +22,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
     import {mapGetters, mapActions} from 'vuex'
 
     export default {
@@ -35,10 +34,6 @@
             isBanned : 'isBanned',
             group : 'group'
         }),
-        data: () => {
-            return {screenName: '(loading)'}
-			return {groupName: '(loading)'}
-        },
         methods: {
             fetchUserData: function () {
                 this.$store.dispatch('loadProfile')

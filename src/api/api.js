@@ -53,7 +53,7 @@ export default {
         doPost('api/register', userdata, onSuccess, onError);
     },
     fetchUserData(token, onSuccess, onError) {
-        doGet("/api/auth/profile", token, {}, onSuccess, onError );
+        doGet("/api/auth/profile", token, onSuccess, onError );
     },
     fetchGroupData(token, onSuccess, onError) {
         doGet("/api/auth/wg", token, onSuccess, onError );
