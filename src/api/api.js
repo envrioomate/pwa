@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const verbose = process.env.NODE_ENV !== 'production';
+const verbose = true;
 
 function doPost(url, data, onSuccess, onError) {
     axios.post(url,data).then((res) => {
@@ -12,7 +12,7 @@ function doPost(url, data, onSuccess, onError) {
     })
 }
 
-function doGet( url, token = "" , data, onSuccess, onError ) {
+function doGetWithParams( url, token = "" , data, onSuccess, onError ) {
     axios.get(url, {
         headers: {
             "Authorization": "Bearer " + token
@@ -26,6 +26,21 @@ function doGet( url, token = "" , data, onSuccess, onError ) {
         onError(err)
     })
 }
+
+function doGet( url, token = "", onSuccess, onError ) {
+    axios.get(url, {
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+    }).then((res) => {
+        if (verbose) console.log(res);
+        onSuccess(res);
+    }).catch((err) => {
+        if (verbose) console.log("GET to " + url, err)
+        onError(err)
+    })
+}
+
 export default {
     login(email, password, onSuccess, onError) {
         let userdata = {
@@ -39,6 +54,9 @@ export default {
     },
     fetchUserData(token, onSuccess, onError) {
         doGet("/api/auth/profile", token, {}, onSuccess, onError );
+    },
+    fetchGroupData(token, onSuccess, onError) {
+        doGet("/api/auth/wg", token, onSuccess, onError );
     }
 
 };

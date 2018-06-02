@@ -1,29 +1,47 @@
 import Api from '../api/api';
+import {Group} from '../api/Group'
 
 const state = {
-    groupId : null,
-    groupName : null,
-    members : null,
-    inviteId : null,
-    score : null,
+    hasGroup: null,  //the good ol' tri-state boolean
+    myGroup: null,
+    inviteId: null
 }
 
 const getters = {
-    groupId: state => state.groupId,
-    groupName: state => state.groupName,
-    members: state => state.members,
+    myGroup: state => state.myGroup,
     inviteId: state => state.inviteId,
-    score: state => state.score
+    hasGroup: state => state.hasGroup
 }
 
 const actions = {
     loadGroup({commit, rootState}) {
-        let token = rootState.login.token(rootState)
-        console.log(token)
+        let token = rootState.login.token
+
+        Api.fetchGroupData(token, (res => {
+            console.log(JSON.stringify(res))
+            if (!res.data.message) {
+                console.log("Group Data: " + JSON.stringify(data));
+                commit('setGroup', res.data);
+                commit('setHasGroup', true);
+            } else {
+                commit('setHasGroup', false)
+
+            }
+        }), (err => {
+            console.error(err)
+
+        }))
     }
 }
 
 const mutations = {
+    setGroup (state, data) {
+        state.myGroup = new Group(data.id, data.name. data.members, data.score);
+        state.inviteId = data.inviteId;
+    },
+    setHasGroup (state, hasGroup) {
+        state.hasGroup = hasGroup
+    }
 
 }
 

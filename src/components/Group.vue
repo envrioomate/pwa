@@ -12,6 +12,27 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
+
+    export default {
+        computed: mapGetters({
+            hasGroup: 'hasGroup',
+            group: 'group',
+            inviiteId: 'inviteId'
+        }),
+        actions: {
+        ...mapActions([
+            'loadGroup'
+        ])},
+        methods: {
+            fetchUserData: function () {
+                this.$store.dispatch('loadGroup')
+            }
+        },
+        created: function (){
+            this.fetchUserData();
+        }
+    }
 </script>
 
 <style scoped>

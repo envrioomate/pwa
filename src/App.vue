@@ -15,7 +15,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 			
-			<v-list-tile @click="" to="/login" v-if="$store.state.token==null || $store.state.token==undefined">
+			<v-list-tile @click="" to="/login" v-if="!token">
                 <v-list-tile-action>
                     <v-icon>vpn_key</v-icon>
                 </v-list-tile-action>
@@ -24,7 +24,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 			
-			<v-list-tile @click="" to="/register" v-if="$store.state.token==null || $store.state.token==undefined">
+			<v-list-tile @click="" to="/register" v-if="!token">
                 <v-list-tile-action>
                     <v-icon>format_align_left</v-icon>
                 </v-list-tile-action>
@@ -33,7 +33,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 			
-			<v-list-tile @click="" to="/group" v-if="$store.state.token!=null && $store.state.token!=undefined">
+			<v-list-tile @click="" to="/group" v-if="token">
                 <v-list-tile-action>
                     <v-icon>group</v-icon>
                 </v-list-tile-action>
@@ -42,7 +42,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 			
-			<v-list-tile @click="" to="/challenges" v-if="$store.state.token!=null && $store.state.token!=undefined">
+			<v-list-tile @click="" to="/challenges" v-if="token">
                 <v-list-tile-action>
                     <v-icon>fa-trophy</v-icon>
                 </v-list-tile-action>
@@ -51,7 +51,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 			
-			<v-list-tile @click="" to="/settings" v-if="$store.state.token!=null && $store.state.token!=undefined">
+			<v-list-tile @click="" to="/settings" v-if="token">
                 <v-list-tile-action>
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
@@ -69,7 +69,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 			
-			<v-list-tile three-line @click="logout" v-if="$store.state.token!=null && $store.state.token!=undefined">
+			<v-list-tile three-line @click="logout" v-if="token">
                 <v-list-tile-action>
                     <v-icon>directions_walk</v-icon>
                 </v-list-tile-action>
@@ -93,11 +93,15 @@
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
 
 	export default {
 		name: 'App',
 		data: () => ({
-			drawer: null
+			drawer: null,
+            ...mapGetters({
+                token: 'token'
+            })
 		}),
 		props: {
 			source: String

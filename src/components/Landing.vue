@@ -15,25 +15,20 @@
 </template>
 
 <script>
-	import axios from 'axios'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         methods: {
             fetchUserData: function () {
-                axios.get("/api/auth/profile",
-                    {
-                        headers: {
-                            "Authorization": "Bearer " + this.$store.state.token
-                        }
-                    }).then((res) => {
-                    console.log("gotten profile: ", res);
-                    this.$router.push({name: 'loggedin'});
-                }).catch((err) => console.log("It broke while retrieving the user profile!", err))
+                if(this.$store.state.login.token) {
+                    this.$router.push({name: 'loggedin'})
+                }
             }
         },
-        created: function (){
+        created: function () {
             this.fetchUserData();
         }
+
     }
 </script>
 
