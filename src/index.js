@@ -11,15 +11,12 @@ import Login from './components/Login.vue'
 import LoggedIn from './components/LoggedIn.vue'
 import Landing from './components/Landing.vue'
 import Register from './components/Register.vue'
-<<<<<<< HEAD
 import store from './store'
-=======
 import Group from './components/Group.vue'
 import Settings from './components/Settings.vue'
-import Challnges from './components/Challenges.vue'
+import Challenges from './components/Challenges.vue'
 import '../node_modules/vue-awesome/icons'
 import Icon from '../node_modules/vue-awesome/icons'
->>>>>>> Dev_version
 
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -62,32 +59,7 @@ const router = new VueRouter({
     ]
 });
 
-const loadState = () => {
-    try {
-        const serializedState = localStorage.getItem('vue_state');
-        if (serializedState === null) {
-            return undefined;
-        }
-        return JSON.parse(serializedState);
-    } catch (err) {
-        return undefined;
-    }
-};
-
-const saveState = (state) => {
-    try {
-        const serializedState = JSON.stringify(state);
-        localStorage.setItem('vue_state', serializedState);
-    } catch (err) {
-        console.error(`Something went wrong: ${err}`);
-    }
-}
-
-
-
 Vue.use(Vuex); // @see https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart
-
-
 
 Vue.use(Vuetify, {
     theme: {
