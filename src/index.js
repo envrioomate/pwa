@@ -1,10 +1,8 @@
-import * as _ from "lodash";
 import './styles.scss';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import '../node_modules/vuetify/dist/vuetify.min.css';
-import Api from './api/api'
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import Login from './components/Login.vue'
@@ -16,7 +14,6 @@ import Group from './components/Group.vue'
 import Settings from './components/Settings.vue'
 import Challenges from './components/Challenges.vue'
 import '../node_modules/vue-awesome/icons'
-import Icon from '../node_modules/vue-awesome/icons'
 
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -43,17 +40,17 @@ const router = new VueRouter({
         },
 		{
             path: '/group',
-            name: "Group",
+            name: "group",
             component: Group
         },
 		{
             path: '/challenges',
-            name: "Challnges",
+            name: "challenges",
             component: Challenges
         },
 		{
             path: '/settings',
-            name: "Settings",
+            name: "settings",
             component: Settings
         }
     ]
@@ -72,8 +69,6 @@ Vue.use(Vuetify, {
         success: "#4caf50"
     }
 })
-
-Vue.component('icon', Icon)
 
 const app = new Vue({
     el: '#app',

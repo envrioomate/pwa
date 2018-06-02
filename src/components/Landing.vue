@@ -6,8 +6,8 @@
                     <h3 class="display-3">Welcome to the site</h3>
                     <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
                     <v-divider class="my-3"></v-divider>
-                    <v-btn to="/login">Login</v-btn>
-                    <v-btn to="/register">Register</v-btn>
+                    <v-btn color="info" to="/login">Login</v-btn>
+                    <v-btn color="info" to="/register">Register</v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
