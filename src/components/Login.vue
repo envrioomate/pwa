@@ -72,26 +72,6 @@ export default {
         ],
         checkbox: false
     }),
-    /*
-    methods: {
-        submit() {
-            if (this.$refs.form.validate()) {
-                // Native form submission is not yet supported
-                axios.post('/api/login', {
-                    username: this.email,
-                    password: this.password
-                }).then((res) => {
-                    console.log(res);
-                    this.$store.commit('setUserId', res.data.id);
-                    this.$store.commit('setToken', res.data.token);
-                    this.$router.push({name: 'loggedin'})
-                }).catch((err) => console.log("It broke while logging in", err))
-            }
-        },
-        clear() {
-            this.$refs.form.reset()
-        }
-    } */
 }
 </script>
 

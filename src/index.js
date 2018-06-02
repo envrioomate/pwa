@@ -11,7 +11,15 @@ import Login from './components/Login.vue'
 import LoggedIn from './components/LoggedIn.vue'
 import Landing from './components/Landing.vue'
 import Register from './components/Register.vue'
+<<<<<<< HEAD
 import store from './store'
+=======
+import Group from './components/Group.vue'
+import Settings from './components/Settings.vue'
+import Challnges from './components/Challenges.vue'
+import '../node_modules/vue-awesome/icons'
+import Icon from '../node_modules/vue-awesome/icons'
+>>>>>>> Dev_version
 
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -35,6 +43,21 @@ const router = new VueRouter({
             path: '/',
             name: "Index",
             component: Landing
+        },
+		{
+            path: '/group',
+            name: "Group",
+            component: Group
+        },
+		{
+            path: '/challenges',
+            name: "Challnges",
+            component: Challenges
+        },
+		{
+            path: '/settings',
+            name: "Settings",
+            component: Settings
         }
     ]
 });
@@ -68,9 +91,9 @@ Vue.use(Vuex); // @see https://github.com/vuejs/vuex/tree/dev/examples/shopping-
 
 Vue.use(Vuetify, {
     theme: {
-        primary: "#f44336",
-        secondary: "#e57373",
-        accent: "#9c27b0",
+        primary: "#388e3c",
+        secondary: "#1e88e5",
+        accent: "#00600f",
         error: "#f44336",
         warning: "#ffeb3b",
         info: "#2196f3",
@@ -78,7 +101,7 @@ Vue.use(Vuetify, {
     }
 })
 
-
+Vue.component('icon', Icon)
 
 const app = new Vue({
     el: '#app',
