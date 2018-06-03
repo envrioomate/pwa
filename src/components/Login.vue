@@ -53,6 +53,7 @@ export default {
     },
     watch: {
         loginStatus: function(newStatus) {
+            console.log(newStatus);
             if(newStatus == "success") {
                 this.$router.push({name: 'Index'})
             }

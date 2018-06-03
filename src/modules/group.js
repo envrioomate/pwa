@@ -23,6 +23,7 @@ const actions = {
                 commit('setGroup', res.data);
                 commit('setHasGroup', true);
             } else {
+                commit('setGroup', null);
                 commit('setHasGroup', false)
 
             }
@@ -36,8 +37,13 @@ const actions = {
 const mutations = {
     setGroup (state, data) {
         console.log(data);
-        state.myGroup = new Group(data);
-        state.inviteId = data.inviteId;
+        if(data) {
+            state.myGroup = new Group(data);
+            state.inviteId = data.inviteId;
+        } else {
+            state.myGroup = null;
+            state.inviteId = null;
+        }
     },
     setHasGroup (state, hasGroup) {
         state.hasGroup = hasGroup

@@ -111,7 +111,7 @@
 			this.$store.commit('setUserId', null);
             this.$store.commit('setToken', null);
 			this.$store.commit('setAuthorization', false);
-			this.$router.push({name: 'landing'});
+			this.$router.push({name: 'Index'});
 		  }
 		},
 	}

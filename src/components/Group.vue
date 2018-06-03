@@ -3,7 +3,7 @@
         <v-container fill-height>
             <v-layout align-center>
                 <v-flex>
-                    <h3 class="display-3">{{group.name ? group.name : "placeholder"}}</h3>
+                    <h3 class="display-3">{{group ? group.name : "placeholder"}}</h3>
                     <span class="subheading">Here you can see information about your team</span>
                     <div v-if='hasGroup'>
                         <v-list two-line>
