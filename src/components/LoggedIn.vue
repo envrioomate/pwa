@@ -27,7 +27,6 @@
     export default {
         data: () => {
             return {screenName: '(loading)'}
-			return {groupName: '(loading)'}
         },
         methods: {
             fetchUserData: function () {
