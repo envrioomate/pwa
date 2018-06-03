@@ -74,6 +74,9 @@ export default {
     createGroup(token, onSuccess, onError) {
         doPostAuthorized('api/auth/new-wg', token, {}, onSuccess, onError);
     },
+    leaveGroup(token, onSuccess, onError) {
+        doPostAuthorized('api/auth/leave-wg', token, {}, onSuccess, onError);
+    },
     renameGroup(token, newName, onSuccess, onError) {
         doPostAuthorized('api/auth/update-wg', token, {newName: newName}, onSuccess, onError);
     },
