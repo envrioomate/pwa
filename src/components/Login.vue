@@ -16,9 +16,13 @@
                             label="Password"
                             required
                     ></v-text-field>
+                    <v-alert :value='loginStatus == "failed"' type="error"      transition="scale-transition"
+                    >
+                        Username or Password not found...
+                    </v-alert>
                     <v-btn
                             :disabled="!valid"
-                            @click="submit"
+                            @click="login()"
                     >
                         submit
                     </v-btn>
@@ -30,45 +34,45 @@
 </template>
 
 <script>
-    import axios from 'axios'
+import axios from 'axios'
+import {mapGetters, mapActions} from 'vuex'
 
-    export default {
-        data: () => ({
-            valid: true,
-            email: '',
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-            ],
-            password: '',
-            passwordRules: [
-                v => !!v || 'Password is required',
-                v => (v && v.length >= 4) || 'Password must be more than 4 characters'
-            ],
-            checkbox: false
-        }),
-
-        methods: {
-            submit() {
-                if (this.$refs.form.validate()) {
-                    // Native form submission is not yet supported
-                    axios.post('/api/login', {
-                        username: this.email,
-                        password: this.password
-                    }).then((res) => {
-                        console.log(res);
-                        this.$store.commit('setUserId', res.data.id);
-                        this.$store.commit('setToken', res.data.token);
-						this.$store.commit('setAuthorization', true);
-                        this.$router.push({name: 'loggedin'})
-                    }).catch((err) => console.log("It broke while logging in", err))
-                }
-            },
-            clear() {
-                this.$refs.form.reset()
-            }
+export default {
+    computed: mapGetters({
+        token: 'token',
+        loginStatus: 'loginStatus'
+    }),
+    methods: {
+        login() {
+            console.log("dispatch login with " + this.$data.email + " " + this.$data.password )
+            this.$store.dispatch('login', {email : this.$data.email, password : this.$data.password})
+        },
+        clear() {
+            this.$refs.form.reset()
         }
-    }
+    },
+    watch: {
+        loginStatus: function(newStatus) {
+            if(newStatus == "success") {
+                this.$router.push({name: 'Index'})
+            }
+        },
+    },
+    data: () => ({
+        valid: true,
+        email: '',
+        emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must conform to regex /^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$/'
+        ],
+        password: '',
+        passwordRules: [
+            v => !!v || 'Password is required',
+            v => (v && v.length >= 4) || 'Password must be more than 4 characters'
+        ],
+        checkbox: false
+    }),
+}
 </script>
 
 <style scoped>

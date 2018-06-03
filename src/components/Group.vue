@@ -3,36 +3,30 @@
         <v-container fill-height>
             <v-layout align-center>
                 <v-flex>
-                    <h3 class="display-3">Deine WG</h3>
+              
+                    <div v-if='hasGroup'>
+						<h3 class="display-3">{{group && group.name ? group.name : "placeholder"}}</h3>
+                        <span class="subheading">Here you can see information about your team</span>
+                        <v-text-field
+                                v-model="newName"
+                                label="WG Name"
+
+                        ></v-text-field>
+
+                        <v-btn v-on:click="renameGroup">Wg Umbennen</v-btn>
+                        <v-btn v-on:click="leaveGroup">Wg Verlassen</v-btn>
+
+                        INVITE LINK {{ inviteId }}
+                    </div>
 					
-					<div  v-if="group==='(loading)' && group.data.messgae!='Group not found'">
-						<v-list two-line>
-						  <template v-for="(item, index) in items">
-							<v-subheader v-if="item.header" :key="item.header">{{ item.header }}</v-subheader>
-							<v-divider v-else-if="item.divider" :inset="item.inset" :key="index"></v-divider>
-							<v-list-tile v-else :key="item.title" avatar @click="">
-							  <v-list-tile-avatar :color="item.color">
-								<span class="white--text headline">{{ item.avatar }}</span>
-							  </v-list-tile-avatar>
-							  <v-list-tile-content>
-								<v-list-tile-title v-html="item.title"></v-list-tile-title>
-								<v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
-							  </v-list-tile-content>
-							</v-list-tile>
-						  </template>
-						</v-list>
-					</div>
 					<div v-else>
-						<span class="subheading">Du bist nicht Teil einer WG</span>
-						<div/>
-						<v-btn @click="createGroup" color="info">Erstelle WG</v-btn>	
-						<v-text-field
-                              v-model="inviteId"
-							  label="WG Link"
-                              required
-							></v-text-field>
-						<v-btn color="info" @click="joinGroup">Trete WG bei</v-btn>			  
-					</div>		
+						<h3 class="display-3">Your Team</h3>
+						<span class="subheading">You are not part of any team.</span>
+						</div>
+						<v-btn v-on:click="createGroup">Create Group</v-btn>
+					</div>
+                    
+
                 </v-flex>
             </v-layout>
         </v-container>
@@ -40,77 +34,78 @@
 </template>
 
 <script>
-	import axios from 'axios'
-
+    import {mapGetters, mapActions} from 'vuex'
+    import Api from '../api/api'
     export default {
         data: () => {
-			return {
-				group: '(loading)',
-				name: '(loading)',
-				inviteId: '',
-				groups: '(loading)'
-			}
+            return {newName: ''};
+        },
+        computed: {
+            avatars: function () {
+                return group.members.map((member) => member.screenName.charAt(0))
+            },
+            colors: function () {
+                var colors = [
+                    'red', 'pink', 'purple', 'blue', 'cyan', 'teal', 'yellow', 'red'
+                ];
+                var randomNumber = Math.floor(Math.random() * colors.length);
+                return colors[randomNumber];
+            },
+            ...mapGetters({
+                hasGroup: 'hasGroup',
+                group: 'myGroup',
+                inviteId: 'inviteId',
+                token: 'token'
+            })
+        },
+        actions: {
+            ...mapActions([
+                'loadGroup'
+            ])
         },
         methods: {
-            fetchUserData: function () {
-				//get user's current group
-                axios.get("/api/auth/wg",
-                    {
-                        headers: {
-                            "Authorization": "Bearer " + this.$store.state.token
-                        }
-                    }).then((res) => {
-                    console.log("gotten group: ", res);
-                    this.group = res.data.group;
-					this.name = res.data.group.name;
-					this.inviteId = res.data.group.inviteId;
-                }).catch((err) => console.log("It broke while retrieving the user profile!", err)),
-				//Get all the followed groups
-				axios.get("/api/auth/followed-wgs",
-                    {
-                        headers: {
-                            "Authorization": "Bearer " + this.$store.state.token
-                        }
-                    }).then((res) => {
-                    console.log("gotten followed groups: ", res);
-                    this.groups = res.data.groups;
-                }).catch((err) => console.log("It broke while retrieving the user profile!", err))
+            fetchGroupData: function () {
+                this.$store.dispatch('loadGroup')
+				console.log(this.$store.loadGroup);
             },
-			//Create a new group, should there exist none
-			createGroup() {
-                // Native form submission is not yet supported
-                axios.post('/api/new-wg', {
-                    headers: {
-                        "Authorization": "Bearer " + this.$store.state.token
-                    }
-                }).then((res) => {
-					console.log("created profile: ", res);
-                    this.group = res.data.group;
-				}).catch((err) => console.log("It broke while trying to create a group", err))
-			},
-			//Join a group based on a link
-			joinGroup() {
-				console.log("Hello!");
-                // Native form submission is not yet supported
-                axios.post('/api/join-wg', {
-                    headers: {
-                        "Authorization": "Bearer " + this.$store.state.token
-                    },
-					params: {
-						'inviteId': this.inviteId
-					}
-                }).then((res) => {
-					console.log("created profile: ", res);
-                    this.group = res.data.group;
-				}).catch((err) => console.log("It broke while registering", err))
-			}
+            createGroup: function () {
+				console.log("create group")
+                Api.createGroup(this.token, (res) => {
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
+            },
+            renameGroup: function () {
+                console.log("Rename to" + this.newName)
+                Api.renameGroup(this.token, this.newName, (res) => {
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
+            },
+            leaveGroup: function () {
+                console.log("leave group")
+                Api.leaveGroup(this.token, (res) => {
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
+            },
+			joinGroup: function () {
+                console.log("join group")
+                Api.joinGroup(this.token, this.inviteId, (res) => {
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
+            },
         },
-        created: function (){
-            this.fetchUserData();
+        created: function () {
+            this.fetchGroupData();
         }
     }
 </script>
 
 <style scoped>
-
 </style>

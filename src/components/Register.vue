@@ -45,7 +45,6 @@
 
 <script>
     import axios from 'axios'
-
     export default {
         data: () => ({
             valid: true,
@@ -70,7 +69,6 @@
                 v => (v && v.length >= 4) || 'Password must be more than 4 characters'
             ],
         }),
-
         methods: {
             submit() {
                 if (this.$refs.form.validate()) {
@@ -104,5 +102,4 @@
 </script>
 
 <style scoped>
-
 </style>
