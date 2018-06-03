@@ -46,6 +46,11 @@ const router = new VueRouter({
             component: Group
         },
         {
+            path: '/friends',
+            name: "friends",
+            component: Friends
+        },
+        {
             path: '/current_challenge',
             name: "currentChallenge",
             component: CurrentChallenge
@@ -59,11 +64,6 @@ const router = new VueRouter({
             path: '/settings',
             name: "settings",
             component: Settings
-        },
-        {
-            path: '/friends',
-            name: "friends",
-            component: Friends
         }
     ]
 });
@@ -89,7 +89,6 @@ const app = new Vue({
     router,
     store
 })
-
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

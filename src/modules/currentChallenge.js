@@ -2,11 +2,11 @@ import Api from '../api/api';
 import {Challenge} from '../api/challenge'
 
 const state = {
-    challenge : null
+    currentChallenge : null
 }
 
 const getters = {
-    challenge: state => state.challenge
+    currentChallenge: state => state.currentChallenge
 }
 
 const actions = {
@@ -29,7 +29,7 @@ const actions = {
 const mutations = {
     setChallenge(state, challengeData) {
         console.log("setting challenge with json: " + JSON.stringify(challengeData))
-        state.challenge = new Challenge(challengeData)
+        state.currentChallenge = new Challenge(challengeData)
     }
 }
 

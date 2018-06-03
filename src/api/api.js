@@ -89,10 +89,26 @@ export default {
     fetchGroupData(token, onSuccess, onError) {
         doGet("/api/auth/wg", token, onSuccess, onError );
     },
+    searchGroup(token, query, onSuccess, onError) {
+        doGetWithParams("/api/auth/search-wg", token, {query: query},onSuccess, onError );
+    },
+    fetchFollowedGroups(token, onSuccess, onError) {
+        doGet("/api/auth/followed-wgs", token, onSuccess, onError );
+    },
+    followGroup(token, id,onSuccess, onError) {
+        doPostAuthorized("/api/auth/follow-wg", token, {id: id}, onSuccess, onError );
+    },
     fetchCurrentChallenge(token, onSuccess, onError) {
         doGet("/api/auth/current-challenge", token, onSuccess, onError );
-
-    }
-
+    },
+    completeCurrentChallenge(token, challengeId,onSuccess, onError) {
+        doPostAuthorized("/api/auth/complete-challenge", token, {id: challengeId}, onSuccess, onError );
+    },
+    fetchCompletedChallenges(token, onSuccess, onError) {
+        doGet("/api/auth/completed-challenges", token, onSuccess, onError );
+    },
+    fetchScore(token, onSuccess, onError) {
+        doGet("/api/auth/score", token, onSuccess, onError );
+    },
 
 };

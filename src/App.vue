@@ -41,6 +41,15 @@
                     <v-list-tile-title>Group</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
+
+            <v-list-tile @click="" to="/friends" v-if="token">
+                <v-list-tile-action>
+                    <v-icon>group</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>Friends</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
 			
 			<v-list-tile @click="" to="/challenges" v-if="token">
                 <v-list-tile-action>
