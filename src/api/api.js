@@ -74,11 +74,15 @@ export default {
     createGroup(token, onSuccess, onError) {
         doPostAuthorized('api/auth/new-wg', token, {}, onSuccess, onError);
     },
+    renameGroup(token, newName, onSuccess, onError) {
+        doPostAuthorized('api/auth/update-wg', token, {newName: newName}, onSuccess, onError);
+    },
     fetchUserData(token, onSuccess, onError) {
         doGet("/api/auth/profile", token, onSuccess, onError );
     },
     fetchGroupData(token, onSuccess, onError) {
         doGet("/api/auth/wg", token, onSuccess, onError );
-    }
+    },
+
 
 };

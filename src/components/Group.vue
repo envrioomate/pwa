@@ -19,6 +19,9 @@
     import Api from '../api/api'
 
     export default {
+        data: () => {
+            return {newName: ''};
+        },
         computed: mapGetters({
             hasGroup: 'hasGroup',
             group: 'group',
@@ -36,6 +39,13 @@
             },
             createGroup: function () {
                 Api.createGroup(this.token, (res) => {
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
+            },
+            renameGroup: function () {
+                Api.renameGroup(this.token, this.newName,  (res) => {
                     this.fetchGroupData()
                 }, (err) => {
                     console.error(err)
