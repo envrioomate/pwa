@@ -14,7 +14,7 @@ const actions = {
         let token = rootState.login.token
         Api.fetchCurrentChallenge(token, function(res) {
             console.log(JSON.stringify(res.data));
-            if (res.data.title) {
+            if (!res.data.message) {
                 commit('setChallenge', res.data);
             } else {
                 console.error("no challenge data recieved: " +  res.data);

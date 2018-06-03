@@ -16,7 +16,7 @@ const actions = {
 
         Api.fetchFollowedGroups(token, function(res) {
             console.log(JSON.stringify(res.data));
-            if (res.data) {
+            if (!res.data.message) {
                 commit('setFriends', res.data);
             } else {
 

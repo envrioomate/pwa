@@ -14,7 +14,7 @@ const actions = {
         let token = rootState.login.token
         Api.fetchCompletedChallenges(token, function(res) {
             console.log(JSON.stringify(res.data));
-            if (res.data) {
+            if (!res.data.message) {
                 commit('setChallenges', res.data);
             } else {
                 console.error("no past challenges data recieved: " +  res.data);

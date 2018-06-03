@@ -70,6 +70,7 @@
         name: "CurrentChallenge",
         computed: {
             completedCurrentChallenge: function () {
+                if(!this.$store.state.pastChallenges.challenges) return false;
                 const i = this.$store.state.pastChallenges.challenges.filter(challenge =>
                     challenge.id === this.currentChallenge.id
                 ).length;
