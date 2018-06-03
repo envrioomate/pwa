@@ -89,6 +89,10 @@ export default {
     fetchGroupData(token, onSuccess, onError) {
         doGet("/api/auth/wg", token, onSuccess, onError );
     },
+    fetchCurrentChallenge(token, onSuccess, onError) {
+        doGet("/api/auth/current-challenge", token, onSuccess, onError );
+
+    }
 
 
 };

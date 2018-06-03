@@ -1,5 +1,5 @@
 import Api from '../api/api';
-import Challenge from '../api/challenge'
+import {Challenge} from '../api/challenge'
 
 const state = {
     challenge : null
@@ -10,8 +10,8 @@ const getters = {
 }
 
 const actions = {
-    loadChallenge({commit, rootState}) {
-        let token = rootState.login.token(rootState)
+    loadCurrentChallenge({commit, rootState}) {
+        let token = rootState.login.token
         Api.fetchCurrentChallenge(token, function(res) {
             console.log(JSON.stringify(res.data));
             if (res.data.title) {
@@ -28,6 +28,7 @@ const actions = {
 
 const mutations = {
     setChallenge(state, challengeData) {
+        console.log("setting challenge with json: " + JSON.stringify(challengeData))
         state.challenge = new Challenge(challengeData)
     }
 }
