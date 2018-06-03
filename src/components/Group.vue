@@ -3,11 +3,25 @@
         <v-container fill-height>
             <v-layout align-center>
                 <v-flex>
-                    <h3 class="display-3">Welcome to the group page</h3>
-                    <div v-if="!hasGroup">
-                    <span class="subheading">You are not in a Group {{token}}</span>
-                    <v-btn @click="createGroup">Create Group</v-btn>
-                    </div>
+                    <h3 class="display-3">Your Group</h3>
+                    <span class="subheading">Here you can see information about your team</span>
+					
+					<v-list two-line v-if='hasGroup'>
+					  <template v-for="(item, index) in group.members">
+						<v-subheader v-if="item.header" :key="item.header">{{ item.header }}</v-subheader>
+						<v-divider v-else-if="item.divider" :inset="item.inset" :key="index"></v-divider>
+						<v-list-tile v-else :key="item.title" avatar @click="">
+						  <v-list-tile-avatar :color="item.color">
+							<span class="white--text headline">{{ item.avatar }}</span>
+						  </v-list-tile-avatar>
+						  <v-list-tile-content>
+							<v-list-tile-title v-html="item.title"></v-list-tile-title>
+							<v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+						  </v-list-tile-content>
+						</v-list-tile>
+					  </template>
+					</v-list>
+					<v-btn v-else @Click="createGroup">Create Group</v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -22,13 +36,18 @@
         data: () => {
             return {newName: ''};
         },
-        computed: mapGetters({
-            hasGroup: 'hasGroup',
-            group: 'group',
-            inviiteId: 'inviteId',
-            token: 'token'
+        computed: {
+            avatars: function () {
+                return group.members.map((member) => member.screenName.charAt(0))
+            },
+            ...mapGetters({
+                hasGroup: 'hasGroup',
+                group: 'group',
+                inviiteId: 'inviteId',
+                token: 'token'
 
-        }),
+            })
+        },
         actions: {
         ...mapActions([
             'loadGroup'
@@ -54,6 +73,7 @@
         },
         created: function (){
             this.fetchGroupData();
+
         }
     }
 </script>
