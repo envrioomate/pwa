@@ -13,6 +13,8 @@ import store from './store'
 import Group from './components/Group.vue'
 import Settings from './components/Settings.vue'
 import Challenges from './components/Challenges.vue'
+import CurrentChallenge from './components/CurrentChallenge.vue'
+import Friends from './components/Friends.vue'
 import '../node_modules/vue-awesome/icons'
 
 Vue.use(VueRouter);
@@ -38,20 +40,30 @@ const router = new VueRouter({
             name: "Index",
             component: Landing
         },
-		{
+        {
             path: '/group',
             name: "group",
             component: Group
         },
-		{
+        {
+            path: '/current_challenge',
+            name: "currentChallenge",
+            component: CurrentChallenge
+        },
+        {
             path: '/challenges',
             name: "challenges",
             component: Challenges
         },
-		{
+        {
             path: '/settings',
             name: "settings",
             component: Settings
+        },
+        {
+            path: '/friends',
+            name: "friends",
+            component: Friends
         }
     ]
 });

@@ -74,6 +74,9 @@ export default {
     createGroup(token, onSuccess, onError) {
         doPostAuthorized('api/auth/new-wg', token, {}, onSuccess, onError);
     },
+    joinGroup(token, joinId, onSuccess, onError) {
+        doPostAuthorized('api/auth/join-wg', token, {inviteLink: joinId}, onSuccess, onError);
+    },
     leaveGroup(token, onSuccess, onError) {
         doPostAuthorized('api/auth/leave-wg', token, {}, onSuccess, onError);
     },
