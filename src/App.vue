@@ -29,7 +29,7 @@
                     <v-icon>format_align_left</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Register</v-list-tile-title>
+                    <v-list-tile-title>Registrieren</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
 			
@@ -38,7 +38,7 @@
                     <v-icon>group</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Group</v-list-tile-title>
+                    <v-list-tile-title>WG</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
 			
@@ -56,7 +56,7 @@
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Settings</v-list-tile-title>
+                    <v-list-tile-title>Einstellungen</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
 			
@@ -65,7 +65,7 @@
                     <v-icon>contact_mail</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Contact</v-list-tile-title>
+                    <v-list-tile-title>Kontakt</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
 			
@@ -81,7 +81,7 @@
     </v-navigation-drawer>
     <v-toolbar color="primary" dark fixed app>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>Application</v-toolbar-title>
+        <v-toolbar-title>Enviroomate</v-toolbar-title>
     </v-toolbar>
     <v-content>
                 <router-view></router-view>
