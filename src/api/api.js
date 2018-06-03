@@ -72,7 +72,7 @@ export default {
         doPost('api/register', userdata, onSuccess, onError);
     },
     createGroup(token, onSuccess, onError) {
-        doPostAuthorized('api/auth/new-wg', token, {}, onSuccess, onError);
+        doPostAuthorized('api/auth/new-wg', token, {name: name}, onSuccess, onError);
     },
 	joinGroup(token, inviteId, onSuccess, onError) {
         doPostAuthorized('api/auth/join-wg', token, {inviteId: inviteId}, onSuccess, onError);
