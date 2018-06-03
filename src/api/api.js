@@ -52,6 +52,9 @@ export default {
     register(userdata, onSuccess, onError) {
         doPost('api/register', userdata, onSuccess, onError);
     },
+    createGroup(userdata, onSuccess, onError) {
+        doPost('api/new-wg', userdata, onSuccess, onError);
+    },
     fetchUserData(token, onSuccess, onError) {
         doGet("/api/auth/profile", token, onSuccess, onError );
     },

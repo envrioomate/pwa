@@ -4,7 +4,10 @@
             <v-layout align-center>
                 <v-flex>
                     <h3 class="display-3">Welcome to the group page</h3>
-                    <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
+                    <div v-if="!hasGroup">
+                    <span class="subheading">You are not in a Group</span>
+                    <v-btn @click="createGroup">Create Group</v-btn>
+                    </div>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -13,6 +16,7 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
+    import Api from '../api/api'
 
     export default {
         computed: mapGetters({
@@ -27,6 +31,13 @@
         methods: {
             fetchUserData: function () {
                 this.$store.dispatch('loadGroup')
+            },
+            createGroup: function () {
+                Api.createGroup(token, (res) => {
+                    this.fetchUserData()
+                }, (err) => {
+                    console.error(err)
+                });
             }
         },
         created: function (){
