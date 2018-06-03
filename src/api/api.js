@@ -2,6 +2,25 @@ import axios from 'axios'
 
 const verbose = true;
 
+function doPostAuthorized(url, token, data, onSuccess, onError) {
+    axios.post(url,data,{
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+    }}).then((res) => {
+        if (verbose) console.log(res);
+        onSuccess(res);
+    }).catch((err) => {
+        if (verbose) console.log("POST to " + url + "\n Payload: " + JSON.stringify({
+            headers: {
+                "Authorization": "Bearer " + token
+            }, data: data
+        }), err)
+        onError(err)
+    })
+}
+
 function doPost(url, data, onSuccess, onError) {
     axios.post(url,data).then((res) => {
         if (verbose) console.log(res);
@@ -52,8 +71,8 @@ export default {
     register(userdata, onSuccess, onError) {
         doPost('api/register', userdata, onSuccess, onError);
     },
-    createGroup(userdata, onSuccess, onError) {
-        doPost('api/new-wg', userdata, onSuccess, onError);
+    createGroup(token, onSuccess, onError) {
+        doPostAuthorized('api/auth/new-wg', token, {}, onSuccess, onError);
     },
     fetchUserData(token, onSuccess, onError) {
         doGet("/api/auth/profile", token, onSuccess, onError );
