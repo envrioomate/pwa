@@ -1,23 +1,36 @@
 import Api from '../api/api';
-import Challenge from '../api/challenge'
+import {Challenge} from '../api/challenge'
 
 const state = {
-    challenge : null
+    currentChallenge : null
 }
 
 const getters = {
-    challenge: state => state.challenge
+    currentChallenge: state => state.currentChallenge
 }
 
 const actions = {
-    loadChallenge({commit, rootState}) {
-        let token = rootState.login.token(rootState)
-        console.log(token)
+    loadCurrentChallenge({commit, rootState}) {
+        let token = rootState.login.token
+        Api.fetchCurrentChallenge(token, function(res) {
+            console.log(JSON.stringify(res.data));
+            if (!res.data.message) {
+                commit('setChallenge', res.data);
+            } else {
+                console.error("no challenge data recieved: " +  res.data);
+            }
+        }, function(err) {
+            console.error(err)
+
+        });
     }
 }
 
 const mutations = {
-
+    setChallenge(state, challengeData) {
+        console.log("setting challenge with json: " + JSON.stringify(challengeData))
+        state.currentChallenge = new Challenge(challengeData)
+    }
 }
 
 export default {

@@ -1,63 +1,63 @@
 <template>
-    <v-jumbotron color="grey lighten-2">
-        <v-container fill-height>
-            <v-layout align-center>
-                <v-flex>
-              
-                    <div v-if='hasGroup'>
-						<h3 class="display-3">{{group && group.name ? group.name : "placeholder"}}</h3>
-                        <span class="subheading">Here you can see information about your team</span>
-						<v-form ref="form" v-model="valid" lazy-validation>
-							<v-text-field
-									v-model="newName"
-									label="WG Name"
-									:rules="newNameRules"
-									:counter="10"
-							></v-text-field>
+    <v-container fill-height color="grey lighten-2">
+        <v-layout align-top>
+            <v-flex>
+                <h3 class="display-3">{{group ? group.name : "placeholder"}}</h3>
+                <span class="subheading">Here you can see information about your team</span>
+                <div v-if='hasGroup'>
+                    <v-list two-line>
+                        <template v-for="(item, index) in group.members">
+                            <v-subheader v-if="item.header" :key="item.header">{{ item.header }}</v-subheader>
+                            <v-divider v-else-if="false" :inset="false" :key="index"></v-divider>
+                            <v-list-tile v-else :key="item.screenName" avatar @click="">
+                                <v-list-tile-avatar :color="colors">
+                                    <span class="white--text headline">{{ item.screenName.charAt(0) }}</span>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                    <v-list-tile-title v-html="item.screenName"> {{item.screenName}} Hello
+                                    </v-list-tile-title>
+                                    <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </template>
+                    </v-list>
+                    <v-text-field
+                            v-model="newName"
+                            label="WG Name"
 
-							<v-btn v-on:click="renameGroup">Wg Umbennen</v-btn>
-						</v-form>
-                        <v-btn v-on:click="leaveGroup">Wg Verlassen</v-btn>
+                    ></v-text-field>
 
-                        INVITE LINK {{ inviteId }}
-                    </div>
-					
-					<div v-else>
-						<h3 class="display-3">Your Team</h3>
-						<span class="subheading">You are not part of any team.</span>
-						</div>
-						<v-form ref="form" v-model="valid" lazy-validation>
-							<v-text-field
-									v-model="newName"
-									label="WG Name"
-									:rules="newNameRules"
-									:counter="10"
-							></v-text-field>
+                    <v-btn v-on:click="renameGroup">Wg Umbennen</v-btn>
+                    <v-btn v-on:click="leaveGroup">Wg Verlassen</v-btn>
 
-						<v-btn v-on:click="createGroup">Create Group</v-btn>
-						</v-form>
-						
-					</div>
-                    
+                    INVITE LINK {{ inviteId }}
+                </div>
+                <div v-else>
+                    <v-text-field
+                            v-model="joinId"
+                            label="InviteLink"
 
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-jumbotron>
+                    ></v-text-field>
+
+                    <v-btn v-on:click="joinGroup">Wg beitreten</v-btn>
+
+                    <v-btn v-on:click="createGroup">Create Group</v-btn>
+                </div>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
     import Api from '../api/api'
     export default {
-        data: () => ({
-			valid: true,
-			newName: '',
-            newNameRules: [
-                v => !!v || 'Name is required',
-                v => (v && v.length <= 10) || 'Name must be less than 10 characters'
-            ],            
-        }),
+        data: () => {
+            return {
+                newName: '',
+                joinId: '',
+            };
+        },
         computed: {
             avatars: function () {
                 return group.members.map((member) => member.screenName.charAt(0))
@@ -84,27 +84,21 @@
         methods: {
             fetchGroupData: function () {
                 this.$store.dispatch('loadGroup')
-				console.log(this.$store.loadGroup);
             },
             createGroup: function () {
-				if (this.$refs.form.validate()) {
-					console.log("create group " + this.newName)
-					Api.createGroup(this.token, this.newName, (res) => {
-						this.fetchGroupData()
-					}, (err) => {
-						console.error(err)
-					});
-				}				
+                Api.createGroup(this.token, (res) => {
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
             },
             renameGroup: function () {
-				if (this.$refs.form.validate()) {
-					console.log("Rename to " + this.newName)
-					Api.renameGroup(this.token, this.newName, (res) => {
-						this.fetchGroupData()
-					}, (err) => {
-						console.error(err)
-					});
-				}
+                console.log("Rename to" + this.newName)
+                Api.renameGroup(this.token, this.newName, (res) => {
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
             },
             leaveGroup: function () {
                 console.log("leave group")
@@ -114,14 +108,14 @@
                     console.error(err)
                 });
             },
-			joinGroup: function () {
-                console.log("join group")
-                Api.joinGroup(this.token, this.inviteId, (res) => {
+            joinGroup: function () {
+                console.log("attepmt to join " + this.joinId)
+                Api.joinGroup(this.token, this.joinId, (res) => {
                     this.fetchGroupData()
                 }, (err) => {
                     console.error(err)
                 });
-            },
+            }
         },
         created: function () {
             this.fetchGroupData();

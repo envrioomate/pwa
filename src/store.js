@@ -4,6 +4,7 @@ import createPersistedState from "vuex-persistedstate";
 
 import login from './modules/login';
 import group from './modules/group';
+import friends from './modules/friends';
 import currentChallenge from './modules/currentChallenge';
 import pastChallenges from './modules/pastChallenges';
 import profile from './modules/profile';
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         login,
         profile,
         group,
+        friends,
         currentChallenge,
         pastChallenges
     },
