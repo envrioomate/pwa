@@ -11,7 +11,7 @@
                         :rules="[() => select.length > 0 || 'You must choose at least one']"
                         :search-input.sync="search"
                         v-model="select"
-                        label="Async items"
+                        label="Team Name"
                         autocomplete
                         cache-items
                         chips
@@ -19,7 +19,7 @@
                 ></v-select>
             </v-flex>
             <v-flex x212 sm4>
-                <v-btn @click="addGroups" :disabled="select.length === 0 ">hizufügen</v-btn>
+                <v-btn depressed @click="addGroups" :disabled="select.length === 0 ">Hinzuügen</v-btn>
             </v-flex>
 
             <v-flex xs12 sm12>

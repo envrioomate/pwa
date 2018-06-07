@@ -11,7 +11,7 @@
 
             </v-container>
         </v-jumbotron>
-        <v-expansion-panel expand>
+        <v-expansion-panel expand depressed>
             <v-expansion-panel-content>
                 <div slot="header">Beschreibung</div>
                 <v-card>
@@ -48,7 +48,7 @@
         </v-expansion-panel>
 
         <div v-if="!completedCurrentChallenge" class="text-xs-center">
-            <v-btn color="primary" dark @click="completeCurrentChallenge()">Accept
+            <v-btn depressed color="primary" dark @click="completeCurrentChallenge()">Geschafft!
                 <v-icon dark right>check_circle</v-icon>
             </v-btn>
         </div>

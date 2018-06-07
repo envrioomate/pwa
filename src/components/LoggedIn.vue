@@ -1,26 +1,30 @@
 <template>
-    <v-jumbotron color="grey lighten-2">
-        <v-container fill-height>
+        <v-container fill-height grid-list-md text-xs-center>
             <v-layout align-center>
-                <v-flex>
-                    <h3 class="display-3">Welcome {{screenName}}</h3>
-                    <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
-                    <v-divider class="my-3"></v-divider>
-					<p class="text-xs-center">
-						<v-btn fab large color="info" to="/group">
-							<v-icon>group</v-icon>
-						</v-btn>
-						<v-btn fab large color="orange" to="/challenges">
-							<v-icon>grade</v-icon>
-						</v-btn>
-						<v-btn fab large color="grey" to="/settings">
-							<v-icon>settings</v-icon>
-						</v-btn>
-					</p>
+                <v-flex align-center>
+                    <h3 class="display-3">Enviroomate</h3>
+                    
+                    <div class="display-1">
+						Hallo und moin <b>{{screenName}}</b>!
+					</div>
+					<div>
+                    <v-btn round depressed large color="primary" to="/group">
+                        Team
+                    </v-btn>
+					</div>
+					<div></div>
+					<div>
+                    <v-btn round depressed large color="primary" to="/challenge">
+                        Challenge
+                    </v-btn>
+					</div><div>
+                    <v-btn round depressed large color="primary" to="/friends">
+                        Freunde
+                    </v-btn>
+					</div>
                 </v-flex>
             </v-layout>
         </v-container>
-    </v-jumbotron>
 </template>
 
 <script>

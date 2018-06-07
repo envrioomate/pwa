@@ -1,8 +1,9 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fluid fill-height grid-list-md text-xs-center>
 
-    <v-layout fill-height >
-        <v-flex xs12>
+    <v-layout align-center>
+        <v-flex xs12 align-center>
+		<h3 class="display-3">Enviroomate</h3>
         <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
                     v-model="name"
@@ -30,13 +31,13 @@
                     required
             ></v-text-field>
 
-            <v-btn
+            <v-btn round depressed large color="primary"
                     :disabled="!valid"
                     @click="submit"
             >
                 submit
             </v-btn>
-            <v-btn @click="clear">clear</v-btn>
+            <v-btn round depressed large color="primary" @click="clear">clear</v-btn>
         </v-form>
         </v-flex>
     </v-layout>

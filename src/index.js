@@ -11,8 +11,10 @@ import Landing from './components/Landing.vue'
 import Register from './components/Register.vue'
 import store from './store'
 import Group from './components/Group.vue'
+import Group_edit from './components/Group_edit.vue'
+import Group_create from './components/Group_create.vue'
+import Group_show from './components/Group_show.vue'
 import Settings from './components/Settings.vue'
-import Challenges from './components/Challenges.vue'
 import CurrentChallenge from './components/CurrentChallenge.vue'
 import Friends from './components/Friends.vue'
 import '../node_modules/vue-awesome/icons'
@@ -45,6 +47,21 @@ const router = new VueRouter({
             name: "group",
             component: Group
         },
+		{
+            path: '/group/create',
+            name: "group_create",
+            component: Group_create
+        },
+		{
+            path: '/group/edit',
+            name: "group_edit",
+            component: Group_edit
+        },
+		{
+            path: '/group/show',
+            name: "group_show",
+            component: Group_show
+        },
         {
             path: '/friends',
             name: "friends",
@@ -54,11 +71,6 @@ const router = new VueRouter({
             path: '/current_challenge',
             name: "currentChallenge",
             component: CurrentChallenge
-        },
-        {
-            path: '/challenges',
-            name: "challenges",
-            component: Challenges
         },
         {
             path: '/settings',
@@ -72,12 +84,12 @@ Vue.use(Vuex); // @see https://github.com/vuejs/vuex/tree/dev/examples/shopping-
 
 Vue.use(Vuetify, {
     theme: {
-        primary: "#388e3c",
-        secondary: "#1e88e5",
-        accent: "#00600f",
+        primary: "#9bba1e",
+        secondary: "#e2ebbe",
+        accent: "#cccccc",
         error: "#f44336",
         warning: "#ffeb3b",
-        info: "#2196f3",
+        info: "#999",
         success: "#4caf50"
     }
 })
