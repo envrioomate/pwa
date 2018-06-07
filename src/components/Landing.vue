@@ -2,6 +2,7 @@
         <v-container fill-height grid-list-md text-xs-center>
             <v-layout align-center>
                 <v-flex align-center>
+					<img src='../assets/Logo_neu_icon.png' />
                     <h3 class="display-3">Enviroomate</h3>
                     <v-form ref="form" v-model="valid" lazy-validation>
                     <v-text-field

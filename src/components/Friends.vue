@@ -1,5 +1,11 @@
 <template>
     <v-container fluid>
+		<v-layout align-center>
+            <v-flex align-center>
+					<img src='../assets/Logo_neu_icon.png' />
+                    <h3 class="display-3">Enviroomate</h3>
+			</v-flex>
+		</v-layout>
         <v-layout row wrap>
             <v-flex xs12>
                 <v-subheader v-text="'Finde andere WGs:'"></v-subheader>

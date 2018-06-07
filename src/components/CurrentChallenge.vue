@@ -1,5 +1,12 @@
 <template>
+        
     <v-container v-if="currentChallenge">
+		<v-layout align-center>
+            <v-flex align-center>
+					<img src='../assets/Logo_neu_icon.png' />
+                    <h3 class="display-3">Enviroomate</h3>
+			</v-flex>
+		</v-layout>
         <v-jumbotron dark :gradient="gradient" v-bind:src="currentChallenge.imageUrl">
             <v-container fill-height>
                 <v-layout align-center>
@@ -57,6 +64,12 @@
         </v-alert>
     </v-container>
     <v-container v-else>
+		<v-layout align-center>
+            <v-flex align-center>
+					<img src='../assets/Logo_neu_icon.png' />
+                    <h3 class="display-3">Enviroomate</h3>
+			</v-flex>
+		</v-layout>
         Lade...
     </v-container>
 </template>

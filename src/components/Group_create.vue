@@ -2,8 +2,8 @@
     <v-container fill-height grid-list-md text-xs-center>
             <v-layout align-center>
                 <v-flex align-center>
-                <h3 class="display-3">{{group ? group.name : "placeholder"}}</h3>
-                <span class="subheading">Here you can see information about your team</span>
+				<img src='../assets/Logo_neu_icon.png' />
+                <h3 class="display-3">Enviroommate</h3>
                 
                     <span class="subheading">Hier kannst du ein neues Team erstellen oder dich einem bereits bestehendem Team über deren Einladungs-Adresse anmelden. Du wirst aus dem Team entfernt in dem du dich derzeitig befindest.</span>
                     <v-text-field

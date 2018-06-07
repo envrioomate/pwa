@@ -18,6 +18,7 @@ import Settings from './components/Settings.vue'
 import CurrentChallenge from './components/CurrentChallenge.vue'
 import Friends from './components/Friends.vue'
 import '../node_modules/vue-awesome/icons'
+import img from './assets/Logo_neu_icon.png'
 
 Vue.use(VueRouter);
 const router = new VueRouter({

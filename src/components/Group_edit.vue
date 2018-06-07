@@ -2,6 +2,7 @@
     <v-container fill-height grid-list-md text-xs-center>
         <v-layout align-center>
             <v-flex align-center>
+				<img src='../assets/Logo_neu_icon.png' />
                 <h3 class="display-3">Enviroommate</h3>
 				<h3 class="display-2">Team: {{group ? group.name : "placeholder"}}</h3>
                 <span class="subheading">Bearbeite deine Gruppe hier!</span>
