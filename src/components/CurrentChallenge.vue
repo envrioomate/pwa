@@ -83,7 +83,8 @@
         name: "CurrentChallenge",
         computed: {
             completedCurrentChallenge: function () {
-                if(!this.$store.state.pastChallenges.challenges) return false;
+                if(!this.$store.state.pastChallenges.challenges
+                || !(this.$store.state.pastChallenges.challenges instanceof Array ) )return false;
                 const i = this.$store.state.pastChallenges.challenges.filter(challenge =>
                     challenge.id === this.currentChallenge.id
                 ).length;
