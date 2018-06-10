@@ -1,103 +1,138 @@
 <template>
     <v-app>
-    <v-navigation-drawer
-            v-model="drawer"
-            fixed
-            app
-    >
-        <v-list dense>
-            <v-list-tile @click="" to="/group/create">
-                <v-list-tile-content>
-                    <v-list-tile-title>Team Erstellen</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-			
-			<v-list-tile @click="" to="/group/edit">
-                <v-list-tile-content>
-                    <v-list-tile-title>Team Bearbeiten</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-			
-			<v-list-tile @click="" to="/group/show">
-                <v-list-tile-content>
-                    <v-list-tile-title>Mein Team</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-			
-			<v-list-tile @click="" to="/friends">
-                <v-list-tile-content>
-                    <v-list-tile-title>Gefolgte Teams</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-			
-			<v-list-tile @click="" to="/current_challenge">
-                <v-list-tile-content>
-                    <v-list-tile-title>Wochenchallenges</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+        <v-navigation-drawer
+                v-model="drawer"
+                fixed
+                app
+        >
+            <v-list dense>
+                <template v-if="menu.loggedInWithGroup" v-for="(item, index) in menu.loggedInWithGroup">
+                    <v-list-tile :click="item.click" :to="item.to">
+                        <v-list-tile-action>
+                            <v-icon>{{item.icon}}</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </template>
 
-            <v-list-tile @click="" to="/settings">
-                <v-list-tile-content>
-                    <v-list-tile-title>Einstellungen</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-			
-			<v-list-tile @click="" to="/help">
-                <v-list-tile-content>
-                    <v-list-tile-title>Hilfe</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+                <template v-if="menu.loggedInWithoutGroup" v-for="(item, index) in menu.loggedInWithoutGroup">
+                    <v-list-tile :click="item.click" :to="item.to">
+                        <v-list-tile-action>
+                            <v-icon>{{item.icon}}</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </template>
 
-            <v-list-tile @click="" to="/contact">
-                <v-list-tile-content>
-                    <v-list-tile-title>Impressum</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-			
-			<v-list-tile></v-list-tile>
-			<v-list-tile></v-list-tile>
-			
-			<v-list-tile three-line @click="logout">
-                <v-list-tile-content>
-                    <v-list-tile-title>Abmelden</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-    </v-navigation-drawer>
-    <v-toolbar color="secondary" light flat fixed app>
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>Application</v-toolbar-title>
-    </v-toolbar>
-    <v-content>
-                <router-view></router-view>
-    </v-content>
+                <v-divider></v-divider>
+
+                <template v-if="menu.loggedIn" v-for="(item, index) in menu.loggedIn">
+                    <v-list-tile :click="item.click" :to="item.to">
+                        <v-list-tile-action>
+                            <v-icon>{{item.icon}}</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </template>
+                <v-divider></v-divider>
+
+                <template v-if="menu.general" v-for="(item, index) in menu.general">
+                    <v-list-tile :click="item.click" :to="item.to ? item.to : null">
+                        <v-list-tile-action>
+                            <v-icon>{{item.icon}}</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-content>
+                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </template>
+                <v-divider></v-divider>
+
+                <v-list-tile three-line @click="logout">
+                    <v-list-tile-action>
+                        <v-icon>exit_to_app</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Abmelden</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+
+            </v-list>
+        </v-navigation-drawer>
+        <v-toolbar color="secondary" light flat fixed app>
+            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-toolbar-title>Application</v-toolbar-title>
+        </v-toolbar>
+        <v-content>
+            <router-view></router-view>
+        </v-content>
     </v-app>
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    export default {
+        name: 'App',
+        data: () => ({
+            drawer: null
+        }),
+        computed: {
+            menu: function () {
+                console.log("rebuild menu, token = " + this.token + " group =" + this.hasGroup)
+                let nav = {};
+                if (this.token) {
+                    if (this.hasGroup) {
+                        nav.loggedInWithGroup = [
+                            {title: "Start", to: "/home", icon: "home"},
+                            {title: "Meine WG", to: "/group", icon: "group"},
+                            {title: "Gefolgte WGs", to: "/friends", icon: "favorite"},
+                            {title: "Wochen Challenge", to: "/current_challenge", icon: "grade"},
+                        ]
+                    } else {
+                        nav.loggedInWithoutGroup = [
+                            {title: "Start", to: "/home", icon: "home"},
+                            {title: "WG finden oder erstellen", to: "/group/create", icon: "group"},
+                        ]
+                    }
+                    nav.loggedIn = [
+                        {title: "Einstellungen", to: "/settings", icon: "settings"},
+                    ]
 
-	export default {
-		name: 'App',
-		data: () => ({
-			drawer: null,
+                } else {
+                }
+                nav.general = [
+                    {title: "Hilfe", to: "/help", icon: "help"},
+                    {title: "Kontakt & Impressum", to: "/contact", icon: "mail_outline"},
+                ]
+                return nav;
+            },
             ...mapGetters({
-                token: 'token'
+                token: 'token',
+                hasGroup: 'group'
             })
-		}),
-		props: {
-			source: String
-		},
-		methods: {
-		  logout: function () {
-			this.$store.commit('setUserId', null);
-            this.$store.commit('setToken', null);
-			this.$store.commit('setAuthorization', false);
-			this.$router.push({name: 'Index'});
-		  }
-		},
-	}
-	
+        },
+        props: {
+            source: String
+        },
+        methods: {
+            logout: function () {
+                console.log("clearing local storage");
+                localStorage.clear();
+                this.$router.push({name: 'Index'});
+                location.reload();
+            }
+        },
+        created: function () {
+
+        }
+    }
+
 </script>
 
 <style lang="styl">

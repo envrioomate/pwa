@@ -41,7 +41,7 @@ const mutations = {
         state.dateCreated = data.dateCreated;
         state.emailConfirmed = data.emailConfirmed;
         state.isBanned = data.isBanned;
-        state.group = data.group;
+        state.group = data.hasGroup;
     }
 }
 

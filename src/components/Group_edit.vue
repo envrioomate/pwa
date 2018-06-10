@@ -82,7 +82,8 @@
         },
         methods: {
             fetchGroupData: function () {
-                this.$store.dispatch('loadGroup')
+                this.$store.dispatch('loadGroup');
+                this.$store.dispatch('loadProfile');
             },
             createGroup: function () {
                 Api.createGroup(this.token, (res) => {
