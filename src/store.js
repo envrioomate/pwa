@@ -6,6 +6,7 @@ import login from './modules/login';
 import group from './modules/group';
 import friends from './modules/friends';
 import currentChallenge from './modules/currentChallenge';
+import completedChallenges from './modules/completedChallenges';
 import pastChallenges from './modules/pastChallenges';
 import profile from './modules/profile';
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
         group,
         friends,
         currentChallenge,
+        completedChallenges,
         pastChallenges
     },
     plugins: [createPersistedState()]

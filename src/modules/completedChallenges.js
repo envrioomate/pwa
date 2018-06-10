@@ -2,20 +2,20 @@ import Api from '../api/api';
 import Challenge from '../api/challenge'
 
 const state = {
-    pastChallenges : null
+    completedChallenges : null
 }
 
 const getters = {
-    pastChallenges: state => state.pastChallenges
+    completedChallenges: state => state.completedChallenges
 }
 
 const actions = {
-    loadPastChallenges({commit, rootState}) {
+    loadCompletedChallenges({commit, rootState}) {
         let token = rootState.login.token
-        Api.fetchPastChallenges(token, function(res) {
+        Api.fetchCompletedChallenges(token, function(res) {
             console.log(JSON.stringify(res.data));
             if (!res.data.message) {
-                commit('setPastChallenges', res.data);
+                commit('setCompletedChallenges', res.data);
             } else {
                 console.error("no past challenges data recieved: " +  res.data);
             }
@@ -27,8 +27,8 @@ const actions = {
 }
 
 const mutations = {
-    setPastChallenges(state, data) {
-        state.pastChallenges = data // this is only a great idea if you're in a rush
+    setCompletedChallenges(state, data) {
+        state.completedChallenges = data // this is only a great idea if you're in a rush
     }
 }
 

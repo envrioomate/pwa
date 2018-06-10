@@ -93,6 +93,8 @@
                             {title: "Meine WG", to: "/group", icon: "group"},
                             {title: "Gefolgte WGs", to: "/friends", icon: "favorite"},
                             {title: "Wochen Challenge", to: "/current_challenge", icon: "grade"},
+                            {title: "Challengeverlauf", to: "/past_challenges", icon: "grade"},
+
                         ]
                     } else {
                         nav.loggedInWithoutGroup = [

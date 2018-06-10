@@ -16,6 +16,8 @@ import Group_create from './components/Group_create.vue'
 import Group_show from './components/Group_show.vue'
 import Settings from './components/Settings.vue'
 import CurrentChallenge from './components/CurrentChallenge.vue'
+import PastChallenges from './components/PastChallenges.vue'
+import PastChallenge from './components/PastChallenge.vue'
 import Friends from './components/Friends.vue'
 import '../node_modules/vue-awesome/icons'
 import img from './assets/Logo_neu_icon.png'
@@ -28,7 +30,7 @@ const router = new VueRouter({
             name: 'login',
             component: Login
         },
-        {
+        { 
             path: '/home',
             name: 'loggedin',
             component: LoggedIn
@@ -72,6 +74,16 @@ const router = new VueRouter({
             path: '/current_challenge',
             name: "currentChallenge",
             component: CurrentChallenge
+        },
+        {
+            path: '/past_challenges',
+            name: "pastChallenges",
+            component: PastChallenges
+        },
+        {
+            path: '/past_challenges/:id',
+            component: PastChallenge,
+            props: true
         },
         {
             path: '/settings',

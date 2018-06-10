@@ -107,6 +107,9 @@ export default {
     fetchCompletedChallenges(token, onSuccess, onError) {
         doGet("/api/auth/completed-challenges", token, onSuccess, onError );
     },
+    fetchPastChallenges(token, onSuccess, onError) {
+        doGet("/api/auth/past-challenges", token, onSuccess, onError );
+    },
     fetchScore(token, onSuccess, onError) {
         doGet("/api/auth/score", token, onSuccess, onError );
     },

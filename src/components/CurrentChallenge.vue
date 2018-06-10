@@ -1,12 +1,12 @@
 <template>
-        
+
     <v-container v-if="currentChallenge">
-		<v-layout align-center>
+        <v-layout align-center>
             <v-flex align-center>
-					<img src='../assets/Logo_neu_icon.png' />
-                    <h3 class="display-3">Enviroomate</h3>
-			</v-flex>
-		</v-layout>
+                <img src='../assets/Logo_neu_icon.png'/>
+                <h3 class="display-3">Enviroomate</h3>
+            </v-flex>
+        </v-layout>
         <v-jumbotron dark :gradient="gradient" v-bind:src="currentChallenge.imageUrl">
             <v-container fill-height>
                 <v-layout align-center>
@@ -64,18 +64,18 @@
         </v-alert>
     </v-container>
     <v-container v-else>
-		<v-layout align-center>
+        <v-layout align-center>
             <v-flex align-center>
-					<img src='../assets/Logo_neu_icon.png' />
-                    <h3 class="display-3">Enviroomate</h3>
-			</v-flex>
-		</v-layout>
+                <img src='../assets/Logo_neu_icon.png'/>
+                <h3 class="display-3">Enviroomate</h3>
+            </v-flex>
+        </v-layout>
         Lade...
     </v-container>
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import Api from "../api/api";
     import currentChallenge from "../modules/currentChallenge";
 
@@ -83,9 +83,9 @@
         name: "CurrentChallenge",
         computed: {
             completedCurrentChallenge: function () {
-                if(!this.$store.state.pastChallenges.challenges
-                || !(this.$store.state.pastChallenges.challenges instanceof Array ) )return false;
-                const i = this.$store.state.pastChallenges.challenges.filter(challenge =>
+                if (!this.completedChallenges
+                    || !(this.completedChallenges instanceof Array)) return false;
+                const i = this.completedChallenges.filter(challenge =>
                     challenge.id === this.currentChallenge.id
                 ).length;
                 return i > 0;
@@ -93,34 +93,36 @@
             ...mapGetters({
                 currentChallenge: 'currentChallenge',
                 group: 'group',
-                pastChallenges: 'pastChallenges',
+                completedChallenges: 'completedChallenges',
                 token: 'token'
             })
         },
         data: () => ({
             gradient: 'to top right, rgba(63,181,81, .7), rgba(25,72,32, .7)'
         }),
-        actions: mapActions({
-            loadGroup: 'loadGroup',
-            loadCurrentChallenge: 'loadCurrentChallenge',
-            loadPastChallenges: 'loadChallenges'
-        }),
 
         methods: {
             init: function () {
                 this.$store.dispatch('loadCurrentChallenge');
-                this.$store.dispatch('loadChallenges');
+                this.$store.dispatch('loadCompletedChallenges');
                 this.$store.dispatch('loadGroup');
+                this.loadPastChallenges();
 
             },
             completeCurrentChallenge: function () {
                 Api.completeCurrentChallenge(this.token, this.currentChallenge.id, (res) => {
                     this.$store.dispatch('loadGroup');
-                    this.$store.dispatch('loadChallenges');
+                    this.$store.dispatch('loadCompletedChallenges');
                 }, (err) => {
                     console.error(err)
                 });
             },
+            ...mapActions({
+                loadGroup: 'loadGroup',
+                loadCurrentChallenge: 'loadCurrentChallenge',
+                loadCompletedChallenges: 'loadCompletedChallenges',
+                loadPastChallenges: 'loadPastChallenges'
+            }),
         },
         created: function () {
             this.init();
