@@ -1,8 +1,8 @@
-import './styles.scss';
+//import './styles/styles.scss';
+import './styles/main.styl';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
-import '../node_modules/vuetify/dist/vuetify.min.css';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import Login from './components/Login.vue'
@@ -82,7 +82,6 @@ const router = new VueRouter({
 });
 
 Vue.use(Vuex); // @see https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart
-
 Vue.use(Vuetify, {
     theme: {
         primary: "#9bba1e",
@@ -94,7 +93,6 @@ Vue.use(Vuetify, {
         success: "#4caf50"
     }
 })
-
 const app = new Vue({
     el: '#app',
     template: '<App/>',

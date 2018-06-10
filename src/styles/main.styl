@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7WxKOzY.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: "MullerNarrow-Light";
+  font-style: normal;
+  src: url("../assets/MullerNarrow-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MullerNarrow-ExtraBold";
+  font-style: normal;
+  src: url("../assets/MullerNarrow-ExtraBold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MullerNarrow-ExtraBoldItalic";
+  font-style: normal;
+  src: url("~/../assets/MullerNarrow-ExtraBoldItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MullerNarrow-LightItalic";
+  font-style: normal;
+  src: url("~/../assets/MullerNarrow-LightItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Summer Font Light";
+  font-style: normal;
+  src: url("../assets/Summer Font Light.otf") format("opentype");
+}
+
+//@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("~material-icons/iconfont/MaterialIcons-Regular.eot"); /* For IE6-8 */
+  src: local('Material Icons'),
+          local('MaterialIcons-Regular'),
+          url("~material-icons/iconfont/MaterialIcons-Regular.woff2") format('woff2'),
+          url("~material-icons/iconfont/MaterialIcons-Regular.woff") format('woff'),
+          url("~material-icons/iconfont/MaterialIcons-Regular.ttf") format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+
+$body-font-family = 'MullerNarrow-Light'
+$alert-font-size = 18px
+
+@import '~vuetify/src/stylus/main'

@@ -12,14 +12,24 @@ module.exports = {
     module: {
         rules: [
             {
-                rules: [{
-                    test: /\.scss$/,
-                    use: [
-                        "style-loader", // creates style nodes from JS strings
-                        "css-loader", // translates CSS into CommonJS
-                        "sass-loader" // compiles Sass to CSS
-                    ]
-                }]
+                test: /\.styl$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'stylus-loader',
+                        options: {
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    "style-loader", // creates style nodes from JS strings
+                    "css-loader", // translates CSS into CommonJS
+                    "sass-loader" // compiles Sass to CSS
+                ]
             },
             {
                 test: /\.css$/,
@@ -30,9 +40,12 @@ module.exports = {
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader'
-                ]
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: "assets/[name].[ext]"
+                    }
+                }
             },
 
             {
@@ -67,7 +80,7 @@ module.exports = {
             swDest: 'service-worker.js',
         }),
         new CopyWebpackPlugin([ {from: 'static/manifest.json', to: 'manifest.json'} ],  { debug: 'info' }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
     ],
     output: {
         filename: '[name].bundle.js',
