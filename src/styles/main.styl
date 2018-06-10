@@ -47,11 +47,12 @@
           url("~material-icons/iconfont/MaterialIcons-Regular.woff") format('woff'),
           url("~material-icons/iconfont/MaterialIcons-Regular.ttf") format('truetype');
 }
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px; /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -72,8 +73,13 @@
   font-feature-settings: 'liga';
 }
 
+@import '~vuetify/src/stylus/settings/_variables'
 
 $body-font-family = 'MullerNarrow-Light'
 $alert-font-size = 18px
+
+h3 {
+  font-family: 'Summer Font Light';
+}
 
 @import '~vuetify/src/stylus/main'
