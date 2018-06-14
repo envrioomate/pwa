@@ -112,14 +112,3 @@ const app = new Vue({
     router,
     store
 })
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(registration => {
-            registration.pushManager.subscribe({userVisibleOnly: true});
-            console.log("SW registered: ", registration);
-        }).catch(registrationError => {
-            console.log("SW Registration failed! ", registrationError);
-        });
-    });
-}

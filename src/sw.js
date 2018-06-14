@@ -16,3 +16,4 @@ self.addEventListener('push', (event) => {
 });
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest);
+
