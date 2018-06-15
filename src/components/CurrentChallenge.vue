@@ -1,61 +1,59 @@
 <template>
 
     <v-container v-if="currentChallenge">
-        <v-layout align-center>
-            <v-flex align-center>
-                <img src='../assets/Logo_neu_icon.png'/>
-                <h3 class="display-3">Enviroomate</h3>
-            </v-flex>
-        </v-layout>
-        <v-jumbotron dark :gradient="gradient" v-bind:src="currentChallenge.imageUrl">
-            <v-container fill-height>
-                <v-layout align-center>
-                    <v-flex text-xs-center>
-                        <h3 class="display-3">{{currentChallenge.title}}</h3>
-                    </v-flex>
+        <v-container fill-height>
+            <v-layout align-center>
+                <v-flex text-xs-center>
+                    <h3 class="display-3">{{currentChallenge.title}}</h3>
+                </v-flex>
+            </v-layout>
+        </v-container>
+        <v-card>
+            <v-card-media :src="currentChallenge.imageUrl ? currentChallenge.imageUrl : '/static/default.jpg'" height="300px">
+                <v-layout column class="media">
+
                 </v-layout>
-
-
-            </v-container>
-        </v-jumbotron>
-        <v-expansion-panel expand depressed>
-            <v-expansion-panel-content>
-                <div slot="header">Beschreibung</div>
-                <v-card>
-                    <v-card-text class="grey lighten-3">
-                        {{currentChallenge.description}}
-                    </v-card-text>
-                </v-card>
-            </v-expansion-panel-content>
-            <v-expansion-panel-content>
-                <div slot="header">Pro-Tipp</div>
-                <v-card>
-                    <v-card-text class="grey lighten-3">
-                        {{currentChallenge.tip}}
-                    </v-card-text>
-                </v-card>
-            </v-expansion-panel-content>
-            <v-expansion-panel-content>
-                <div slot="header">CO2</div>
-                <v-card>
-                    <v-card-text class="grey lighten-3">
-                        {{currentChallenge.co2_savings}}
-                    </v-card-text>
-                </v-card>
-            </v-expansion-panel-content>
-            <v-expansion-panel-content>
-                <div slot="header">Quellen</div>
-                <v-card>
-                    <v-card-text class="grey lighten-3">
-                        <a :href='"http://"+currentChallenge.sources'>{{currentChallenge.sources}}</a>
-                    </v-card-text>
-                </v-card>
-            </v-expansion-panel-content>
-
-        </v-expansion-panel>
-
+            </v-card-media>
+            <v-tabs v-model="tab" grow>
+                <v-tab>Beschreibung</v-tab>
+                <v-tab>Pro-Tipp</v-tab>
+                <v-tab>CO2</v-tab>
+                <v-tab>Quellen</v-tab>
+                <v-tabs-slider color="accent"></v-tabs-slider>
+                <v-tabs-items v-model="tab">
+                    <v-tab-item>
+                        <v-card>
+                            <v-card-text>
+                                {{currentChallenge.description}}
+                            </v-card-text>
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-card>
+                            <v-card-text>
+                                {{currentChallenge.tip}}
+                            </v-card-text>
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-card>
+                            <v-card-text>
+                                {{currentChallenge.co2_savings}}
+                            </v-card-text>
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item>
+                        <v-card>
+                            <v-card-text>
+                                <a :href='"http://"+currentChallenge.sources'>{{currentChallenge.sources}}</a>
+                            </v-card-text>
+                        </v-card>
+                    </v-tab-item>
+                </v-tabs-items>
+            </v-tabs>
+        </v-card>
         <div v-if="!completedCurrentChallenge" class="text-xs-center">
-            <v-btn depressed color="primary" dark @click="completeCurrentChallenge()">Geschafft!
+            <v-btn depressed block round large color="primary" dark @click="completeCurrentChallenge()">Geschafft!
                 <v-icon dark right>check_circle</v-icon>
             </v-btn>
         </div>
@@ -98,6 +96,7 @@
             })
         },
         data: () => ({
+            tab: null,
             gradient: 'to top right, rgba(63,181,81, .7), rgba(25,72,32, .7)'
         }),
 

@@ -80,6 +80,7 @@ module.exports = {
             swDest: 'service-worker.js',
         }),
         new CopyWebpackPlugin([ {from: 'static/manifest.json', to: 'manifest.json'} ],  { debug: 'info' }),
+        new CopyWebpackPlugin([ {from: 'static/**/*', to: '.'} ],  { debug: 'info' }),
         new VueLoaderPlugin(),
     ],
     output: {

@@ -11,6 +11,7 @@ import LoggedIn from './components/LoggedIn.vue'
 import Legal from './components/Legal.vue'
 import Landing from './components/Landing.vue'
 import Register from './components/Register.vue'
+import ResetPassword from './components/ResetPassword.vue'
 import store from './store'
 import Group from './components/Group.vue'
 import Group_edit from './components/Group_edit.vue'
@@ -100,6 +101,11 @@ const router = new VueRouter({
             path: '/contact',
             name: "contact",
             component: About
+        },
+        {
+            path: '/resetPassword',
+            name: "resetPassword",
+            component: ResetPassword
         }
     ]
 });

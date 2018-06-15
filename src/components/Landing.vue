@@ -9,7 +9,7 @@
                     <v-text-field
                             v-model="email"
                             :rules="emailRules"
-                            label="E-mail"
+                            label="E-Mail"
                             required
                     ></v-text-field>
                     <v-text-field
@@ -21,7 +21,7 @@
                     ></v-text-field>
                     <v-alert :value='loginStatus == "failed"' type="error" transition="scale-transition"
                     >
-                        Username or Password not found...
+                        Benutzername oder Passwort falsch!
                     </v-alert>
                     <div>
                         <v-btn block round depressed large color="primary"
@@ -71,7 +71,7 @@
                             <v-text-field
                                     v-model="email"
                                     :rules="emailRules"
-                                    label="E-mail"
+                                    label="E-Mail"
                                     required
                             ></v-text-field>
                             <v-btn round depressed large color="primary"
@@ -130,13 +130,13 @@
             valid: true,
             email: '',
             emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/.test(v) || 'E-mail must conform to regex /^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$/'
+                v => !!v || 'E-Mail wird benötigt',
+                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/.test(v) || 'Das sieht nicht aus wie eine E-Mail-Adresse'
             ],
             password: '',
             passwordRules: [
-                v => !!v || 'Password is required',
-                v => (v && v.length >= 4) || 'Password must be more than 4 characters'
+                v => !!v || 'Passwort wird benötigt',
+                v => (v && v.length >= 4) || 'Passwort muss länger als 4 Zeichen sein'
             ],
             checkbox: false,
             pwResetDialog: false,

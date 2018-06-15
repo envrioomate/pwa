@@ -128,7 +128,7 @@ export default {
         })
     },
     resetPassword(resetToken, password, onSuccess, onError) {
-        doPost("/api/push/register", {password: password, resettoken: resetToken}, onSuccess, onError)
+        doPost("/api/resetPassword", {password: password, resettoken: resetToken}, onSuccess, onError)
     }
 
 };

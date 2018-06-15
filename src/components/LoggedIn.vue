@@ -15,7 +15,7 @@
 					</div>
 					<div></div>
 					<div>
-                    <v-btn round depressed large color="primary" to="/challenge">
+                    <v-btn round depressed large color="primary" to="/current_challenge">
                         Challenge
                     </v-btn>
 					</div><div>
