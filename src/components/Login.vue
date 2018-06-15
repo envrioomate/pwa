@@ -64,7 +64,7 @@ export default {
         email: '',
         emailRules: [
             v => !!v || 'E-mail is required',
-            v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must conform to regex /^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$/'
+            v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/.test(v) || 'E-mail must conform to regex /^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w+})+$/'
         ],
         password: '',
         passwordRules: [

@@ -115,6 +115,20 @@ export default {
     },
     registerPushNotifications(subscription, onSuccess, onError) {
         doPost("/api/push/register", {subscription: subscription}, onSuccess, onError)
+    },
+    requestPasswordReset(email, onSuccess, onError) {
+        axios.get("/api/resetPassword", {
+            params: {username: email}
+        }).then((res) => {
+            if (verbose) console.log(res);
+            onSuccess(res);
+        }).catch((err) => {
+            if (verbose) console.log("GET to " + "/api/resetPassword", err)
+            onError(err)
+        })
+    },
+    resetPassword(resetToken, password, onSuccess, onError) {
+        doPost("/api/push/register", {password: password, resettoken: resetToken}, onSuccess, onError)
     }
 
 };
