@@ -7,8 +7,9 @@
 				<h3 class="display-2">Team: {{group ? group.name : "placeholder"}}</h3>
                 <div v-if='hasGroup'>
                     <v-list two-line>
-                        <template v-for="(item, index) in group.members">
-                            <GroupMemberListEntry :member="item"></GroupMemberListEntry>
+
+                        <template v-for="(member) in group.members">
+                            <GroupMemberListEntry :member="member"></GroupMemberListEntry>
                         </template>
                     </v-list>
                     Einladungs-Adresse: {{ inviteId }}

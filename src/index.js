@@ -7,6 +7,7 @@ import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import Login from './components/Login.vue'
 import LoggedIn from './components/LoggedIn.vue'
+import Legal from './components/Legal.vue'
 import Landing from './components/Landing.vue'
 import Register from './components/Register.vue'
 import store from './store'
@@ -20,7 +21,6 @@ import PastChallenges from './components/PastChallenges.vue'
 import PastChallenge from './components/PastChallenge.vue'
 import Friends from './components/Friends.vue'
 import '../node_modules/vue-awesome/icons'
-import img from './assets/Logo_neu_icon.png'
 
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -89,6 +89,11 @@ const router = new VueRouter({
             path: '/settings',
             name: "settings",
             component: Settings
+        },
+        {
+            path: '/legal',
+            name: "legal",
+            component: Legal
         }
     ]
 });
@@ -112,3 +117,5 @@ const app = new Vue({
     router,
     store
 })
+
+

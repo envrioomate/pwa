@@ -7,13 +7,31 @@ workbox.routing.registerRoute(
     workbox.strategies.staleWhileRevalidate()
 );
 
+function getEndpoint() {
+    return self.registration.pushManager.getSubscription()
+        .then(function(subscription) {
+            if (subscription) {
+                return subscription.endpoint;
+            }
+
+            throw new Error('User not subscribed');
+        });
+}
+
 self.addEventListener('push', (event) => {
-    const title = 'Get Started With Workbox';
-    const options = {
-        body: event.data.text()
-    };
-    event.waitUntil(self.registration.showNotification(title, options));
+
+    event.waitUntil(getEndpoint()
+            .then(function(endpoint) {                                                                                          return fetch('./api/push/getPayload?endpoint=' + endpoint);
+            })
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(payload) {
+                self.registration.showNotification('ServiceWorker Cookbook', {
+                    body: payload,
+                });
+            })
+    );
 });
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest);
-

@@ -17,7 +17,9 @@
         name: "GroupMemberListEntry",
         props: ["member"],
         computed: {
-            isYou: this.member.name === this.userName,
+            isYou: function() {
+                return this.member.name === this.userName
+            },
             completedCurrentChallenge: function () {
                 if (!this.member.completedChallenges
                     || !(this.member.completedChallenges instanceof Array)) return false;
