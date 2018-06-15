@@ -67,7 +67,10 @@
         </v-navigation-drawer>
         <v-toolbar color="secondary" light flat fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-toolbar-title>Application</v-toolbar-title>
+            <v-avatar>
+             <img src='./assets/Logo_neu_sq.png' />
+            </v-avatar>
+            <v-toolbar-title style="font-face: 'Summer Font Light'">Enviroommate</v-toolbar-title>
         </v-toolbar>
         <v-content>
             <router-view></router-view>
