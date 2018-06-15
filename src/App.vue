@@ -43,7 +43,7 @@
                 <v-divider></v-divider>
 
                 <template v-if="menu.general" v-for="(item, index) in menu.general">
-                    <v-list-tile :click="item.click" :to="item.to ? item.to : null">
+                    <v-list-tile :click="item.click" :to="item.to ? item.to : null" :href="item.href ? item.href : null">
                         <v-list-tile-action>
                             <v-icon>{{item.icon}}</v-icon>
                         </v-list-tile-action>
@@ -113,6 +113,7 @@
                 }
                 nav.general = [
                     {title: "Hilfe", to: "/help", icon: "help"},
+                    {title: "Umfrage", href: "https://www.survio.com/survey/d/Q5A9P9A5A9C2F6Y5K", icon: "grade"},
                     {title: "Kontakt & Impressum", to: "/contact", icon: "mail_outline"},
                 ]
                 return nav;

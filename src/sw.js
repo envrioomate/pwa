@@ -3,7 +3,7 @@ workbox.clientsClaim();
 
 
 workbox.routing.registerRoute(
-    new RegExp('https://hacker-news.firebaseio.com'),
+    new RegExp('https://enviroommate.org/'),
     workbox.strategies.staleWhileRevalidate()
 );
 
@@ -20,18 +20,29 @@ function getEndpoint() {
 
 self.addEventListener('push', (event) => {
 
-    event.waitUntil(getEndpoint()
-            .then(function(endpoint) {                                                                                          return fetch('./api/push/getPayload?endpoint=' + endpoint);
-            })
-            .then(function(response) {
-                return response.text();
-            })
-            .then(function(payload) {
-                self.registration.showNotification('ServiceWorker Cookbook', {
-                    body: payload,
-                });
-            })
-    );
+    console.log("received push");
+    if (!(self.Notification && self.Notification.permission === 'granted')) {
+        return;
+    }
+
+    let data = {};
+    if (event.data) {
+        data = event.data.json();
+    }
+    const title = data.title || "Something Has Happened";
+    const message = data.message || "Here's something you might want to check out.";
+    const icon = "./assets/Logo_neu_sq.png";
+
+
+    registration.showNotification(title, {
+        body: message,
+        tag: 'ENVR_Reminder',
+        icon: icon,
+        onclick: function() {
+            event.preventDefault();
+            window.open('https://enviroommate.org/#/current_challenge', '_blank')
+        }
+    });
 });
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest);

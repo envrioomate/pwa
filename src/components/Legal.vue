@@ -1,6 +1,6 @@
 <template>
     <v-container grid-list-md text-xs-left>
-        <v-flex xs12 sm6 offset-sm3>
+        <v-flex xs12 sm8 offset-sm2 class="white" style="padding: 0 2em 0 2em;">
                 <h1>Datenschutzerklärung</h1>
                 <p>Verantwortliche Stelle im Sinne der Datenschutzgesetze, insbesondere der
                     EU-Datenschutzgrundverordnung

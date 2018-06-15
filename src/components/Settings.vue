@@ -10,11 +10,16 @@
 </template>
 
 <script>
+    import Api from '../api/api'
+
     export default {
         data: () => {
             return {
                 registration: null
             }
+        },
+        computed: {
+
         },
         methods: {
             subscribeNotifications: function () {
@@ -31,6 +36,11 @@
                         });
                         console.log("SW registered: ", registration);
                         this.registration = registration;
+                        registration.pushManager.getSubscription().then(s => {
+                            Api.registerPushNotifications(s, (res) => {
+                                console.log("registered push notification endpoint")
+                            } , (err) => console.error(err))
+                        })
                     }).catch(registrationError => {
                         console.log("SW Registration failed! ", registrationError);
                     });

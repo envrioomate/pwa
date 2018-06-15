@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
+import About from './components/About.vue'
 import Login from './components/Login.vue'
 import LoggedIn from './components/LoggedIn.vue'
 import Legal from './components/Legal.vue'
@@ -94,6 +95,11 @@ const router = new VueRouter({
             path: '/legal',
             name: "legal",
             component: Legal
+        },
+        {
+            path: '/contact',
+            name: "contact",
+            component: About
         }
     ]
 });

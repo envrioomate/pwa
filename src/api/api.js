@@ -113,5 +113,8 @@ export default {
     fetchScore(token, onSuccess, onError) {
         doGet("/api/auth/score", token, onSuccess, onError );
     },
+    registerPushNotifications(subscription, onSuccess, onError) {
+        doPost("/api/push/register", {subscription: subscription}, onSuccess, onError)
+    }
 
 };
