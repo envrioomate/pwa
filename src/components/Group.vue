@@ -38,7 +38,7 @@
                                             right
                                             @click.native="shareDialog = true"
                                     >
-                                        <v-icon>share</v-icon>
+                                        <v-icon>person_add</v-icon>
                                     </v-btn>
                                 </v-fab-transition>
                             </v-flex>
@@ -87,6 +87,40 @@
                            :disabled="!nameValid"
                            @click="createGroup"
                     >WG erstellen
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog
+                v-model="joinGroupDialog"
+                transition="slide-y-transition"
+                scrollable
+        >
+            <v-card class="elevation-12">
+                <v-toolbar dark color="primary">
+                    <v-btn icon dark @click.native="joinGroupDialog = false">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>WG beitreten</v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <v-form ref="form" v-model="inviteValid" lazy-validation>
+                        <v-text-field
+                                v-model="joinId"
+                                :rules="inviteRules"
+                                label="Einladungslink"
+                                required
+                                prepend-icon="group_add"
+                        ></v-text-field>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn round depressed large color="primary"
+                           :disabled="!inviteValid"
+                           @click="joinGroup"
+                    >WG beitreten
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -207,6 +241,10 @@
                     v => !!v || 'Ein Name wird benötigt',
                     v => (v && v.length >= 2) || 'Der Name sollte länger als 2 Zeichen sein'
                 ],
+                inviteValid: false,
+                inviteRules: [
+                    v => !!v || 'Bitte einen Einladungslink einfügen'
+                ]
             };
         },
         computed: {
@@ -283,7 +321,11 @@
                 });
             },
             joinGroup: function () {
-                console.log("attepmt to join " + this.joinId)
+                if(this.joinId.length > 6) {
+                    this.joinId = this.joinId.substring(this.joinId.length - 6);
+                }
+                console.log("attepmt to join " + this.joinId);
+
                 Api.joinGroup(this.token, this.joinId, (res) => {
                     this.closeDialogs();
                     this.fetchGroupData()

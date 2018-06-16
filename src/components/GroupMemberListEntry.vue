@@ -6,8 +6,8 @@
         <v-list-tile-content>
             <v-list-tile-title v-html="member.screenName"> {{member.screenName}} </v-list-tile-title>
         </v-list-tile-content>
-        <v-list-tile-action>
-            <v-btn v-if="isYou" flat icon color="accent" @click.native="$emit('leaveGroup')" ripple>
+        <v-list-tile-action v-if="isYou">
+            <v-btn  flat icon color="accent" @click.native="$emit('leaveGroup')" ripple>
                 <v-icon>delete_forever</v-icon>
             </v-btn>
         </v-list-tile-action>
@@ -23,7 +23,7 @@
         props: ["member"],
         computed: {
             isYou: function() {
-                return this.member.name === this.userName
+                return this.member.screenName === this.screenName;
             },
             completedCurrentChallenge: function () {
                 if (!this.member.completedChallenges
