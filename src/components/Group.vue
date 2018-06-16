@@ -58,8 +58,6 @@
 
         <v-dialog
                 v-model="createGroupDialog"
-
-                hide-overlay
                 transition="slide-y-transition"
                 scrollable
         >
@@ -186,7 +184,6 @@
 
         <v-dialog
                 v-model="leaveGroupDialog"
-                hide-overlay
                 transition="slide-y-transition"
                 scrollable
         >

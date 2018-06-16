@@ -14,9 +14,6 @@ import Register from './components/Register.vue'
 import ResetPassword from './components/ResetPassword.vue'
 import store from './store'
 import Group from './components/Group.vue'
-import Group_edit from './components/Group_edit.vue'
-import Group_create from './components/Group_create.vue'
-import Group_show from './components/Group_show.vue'
 import Settings from './components/Settings.vue'
 import CurrentChallenge from './components/CurrentChallenge.vue'
 import PastChallenges from './components/PastChallenges.vue'
@@ -51,21 +48,6 @@ const router = new VueRouter({
             path: '/group',
             name: "group",
             component: Group
-        },
-		{
-            path: '/group/create',
-            name: "group_create",
-            component: Group_create
-        },
-		{
-            path: '/group/edit',
-            name: "group_edit",
-            component: Group_edit
-        },
-		{
-            path: '/group/show',
-            name: "group_show",
-            component: Group_show
         },
         {
             path: '/friends',

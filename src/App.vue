@@ -67,9 +67,7 @@
         </v-navigation-drawer>
         <v-toolbar color="secondary" light flat fixed app>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <v-avatar>
              <img src='./assets/Logo_neu_sq.png' />
-            </v-avatar>
             <v-toolbar-title style="font-face: 'Summer Font Light'">Enviroommate</v-toolbar-title>
         </v-toolbar>
         <v-content>
@@ -102,7 +100,7 @@
                     } else {
                         nav.loggedInWithoutGroup = [
                             {title: "Start", to: "/home", icon: "home"},
-                            {title: "WG finden oder erstellen", to: "/group/create", icon: "group"},
+                            {title: "WG finden oder erstellen", to: "/group", icon: "group"},
                         ]
                     }
                     nav.loggedIn = [
