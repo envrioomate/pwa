@@ -31,8 +31,7 @@ self.addEventListener('push', (event) => {
     }
     const title = data.title || "Something Has Happened";
     const message = data.message || "Here's something you might want to check out.";
-    const icon = "./assets/Logo_neu_sq.png";
-
+    const icon = "./static/Logo_neu_sq.png";
 
     registration.showNotification(title, {
         body: message,

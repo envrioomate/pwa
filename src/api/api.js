@@ -129,6 +129,9 @@ export default {
     },
     resetPassword(resetToken, password, onSuccess, onError) {
         doPost("/api/resetPassword", {password: password, resettoken: resetToken}, onSuccess, onError)
+    },
+    fetchAlerts(token, onSuccess, onError) {
+        doGet("/api/alerts", token, onSuccess, onError)
     }
 
 };

@@ -82,9 +82,6 @@
                     </v-flex>
                 </v-layout>
             </v-card>
-
-
-
         </v-dialog>
     </v-container>
 </template>

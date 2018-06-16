@@ -1,33 +1,239 @@
 <template>
-    <v-container fill-height grid-list-md text-xs-center>
-        <v-layout align-center>
-            <v-flex align-center>
-					<img src='../assets/Logo_neu_icon.png' />
-                    <h3 class="display-3">Enviroomate</h3>
-					<div>
-                    <v-btn round depressed large color="primary" to="/group/show">
-                        Mein Team
+    <v-container >
+        <v-layout >
+            <v-flex >
+                <template v-if="hasGroup" >
+                    <v-container grid-list-md text-xs-center>
+                        <v-layout  align-center>
+                            <v-flex align-center fill-height>
+                                <span>
+                                    <h3 class="display-2">{{group ? group.name : "placeholder"}}
+                                        <v-btn flat icon color="accent" @click.native="renameGroupDialog = true" class="text-lg-right">
+                                            <v-icon>edit</v-icon>
+                                        </v-btn>
+                                    </h3>
+
+                                </span>
+                                <div>
+                                    <v-list>
+                                        <template v-for="(member) in group.members">
+                                            <GroupMemberListEntry :member="member" v-on:leaveGroup="leaveGroupDialog = true"></GroupMemberListEntry>
+                                        </template>
+                                        <template v-if="group.members.length < 2">
+                                            <v-divider></v-divider>
+                                            <v-list-tile @click="">
+                                                <v-list-tile-content>Etwas leer hier. Lade Leute in deine WG ein, indem Du den Share-Button drückst. </v-list-tile-content>
+                                            </v-list-tile>
+                                        </template>
+                                    </v-list>
+                                    <h3 class="display-2">Score: {{group ? group.score : "placeholder"}}</h3>
+                                </div>
+                                <v-fab-transition>
+                                    <v-btn
+                                            color="primary"
+                                            v-model="hasGroup"
+                                            fab
+                                            fixed
+                                            bottom
+                                            right
+                                            @click.native="shareDialog = true"
+                                    >
+                                        <v-icon>share</v-icon>
+                                    </v-btn>
+                                </v-fab-transition>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </template>
+                <template v-else>
+                    <v-btn round block color="primary" @click.native="createGroupDialog = true">
+                        WG erstellen
                     </v-btn>
-					</div><div>
-                    <v-btn round depressed large color="primary" to="/group/edit">
-                        Team bearbeiten
+                    <v-btn round block color="primary" @click.native="joinGroupDialog = true">
+                        WG beitreten
                     </v-btn>
-					</div><div>
-                    <v-btn round depressed large color="primary" to="/group/create">
-                        Team erstellen
+                </template>
+            </v-flex>
+        </v-layout>
+
+        <v-dialog
+                v-model="createGroupDialog"
+
+                hide-overlay
+                transition="slide-y-transition"
+                scrollable
+        >
+            <v-card class="elevation-12">
+                <v-toolbar dark color="primary">
+                    <v-btn icon dark @click.native="createGroupDialog = false">
+                        <v-icon>close</v-icon>
                     </v-btn>
-					</div>
-                </v-flex>
-            </v-layout>
-        </v-container>
+                    <v-toolbar-title>WG erstellen</v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <v-form ref="form" v-model="nameValid" lazy-validation>
+                        <v-text-field
+                                v-model="newName"
+                                :rules="newNameRules"
+                                label="Neuer WG Name"
+                                required
+                                prepend-icon="person"
+                        ></v-text-field>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn round depressed large color="primary"
+                           :disabled="!nameValid"
+                           @click="createGroup"
+                    >WG erstellen
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog
+                v-model="renameGroupDialog"
+                transition="slide-y-transition"
+                scrollable
+        >
+            <v-card class="elevation-12">
+                <v-toolbar dark color="primary">
+                    <v-btn icon dark @click.native="renameGroupDialog = false">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>WG umbenennen</v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <v-form ref="form" v-model="nameValid" lazy-validation>
+                        <v-text-field
+                                v-model="newName"
+                                :rules="newNameRules"
+                                label="Neuer WG Name"
+                                required
+                                prepend-icon="person"
+                        ></v-text-field>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn round depressed large color="primary"
+                           :disabled="!nameValid"
+                           @click="renameGroup"
+                    >WG umbenennen
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog
+                v-model="shareDialog"
+                transition="slide-y-transition"
+                scrollable
+        >
+            <v-card class="elevation-12">
+                <v-toolbar dark color="primary">
+                    <v-btn icon dark @click.native="shareDialog = false">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>Leute einladen</v-toolbar-title>
+                </v-toolbar>
+                <v-card-actions>
+                    <a :href="'mailto:?subject='+ mailSubject +'&amp;body='+ mailBody">
+                        <v-icon>email</v-icon>
+                    </a>
+                    <v-btn icon @click="copyShareLinkToClipBoard">
+                        <v-icon>send</v-icon>
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+
+        <v-dialog
+                v-model="leaveGroupDialog"
+                hide-overlay
+                transition="slide-y-transition"
+                scrollable
+        >
+            <v-card class="elevation-12">
+                <v-toolbar dark color="error">
+                    <v-btn icon dark @click.native="leaveGroupDialog = false">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>WG verlassen</v-toolbar-title>
+                </v-toolbar>
+                <v-card-actions>
+                    <v-btn round depressed large color="error"
+                           @click="leaveGroup"
+                    >WG verlassen
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <v-snackbar
+                :timeout="2000"
+                :bottom="true"
+                :vertical="false"
+                v-model="snackbar"
+        >
+            Link in die Zwischenablage kopiert!
+            <v-btn flat color="pink" @click.native="snackbar = false">Close</v-btn>
+        </v-snackbar>
+
+    </v-container>
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import GroupMemberListEntry from './GroupMemberListEntry.vue'
     import Api from '../api/api'
 
     export default {
+        components: {GroupMemberListEntry},
+        data: () => {
+            return {
+                renameGroupDialog: false,
+                joinGroupDialog: false,
+                createGroupDialog: false,
+                leaveGroupDialog: false,
+                shareDialog: false,
+                snackbar: false,
+                joinId: '',
+                newName: '',
+                nameValid: false,
+                newNameRules: [
+                    v => !!v || 'Ein Name wird benötigt',
+                    v => (v && v.length >= 2) || 'Der Name sollte länger als 2 Zeichen sein'
+                ],
+            };
+        },
         computed: {
+            avatars: function () {
+                return group.members.map((member) => member.screenName.charAt(0))
+            },
+            mailSubject: function() {
+                return "Enviroommate";
+            },
+            mailBody: function() {
+                return "Hi%2C%20" + this.inviteLink + "%20LG";
+            },
+            colors: function () {
+                var colors = [
+                    'red', 'pink', 'purple', 'blue', 'cyan', 'teal', 'yellow', 'red'
+
+                ];
+                var randomNumber = Math.floor(Math.random() * colors.length);
+                return colors[randomNumber];
+            },
+            inviteLink: function () {
+                if (this.inviteId) {
+                    const inviteLink ="https://enviroommate.org/#/register?i=" + this.inviteId;
+                    this.$emit('shareId', inviteLink);
+                    return inviteLink;
+                }
+            },
             ...mapGetters({
                 hasGroup: 'hasGroup',
                 group: 'myGroup',
@@ -36,6 +242,94 @@
 
             })
         },
+        actions: {},
+        methods: {
+            closeDialogs: function () {
+                this.renameGroupDialog = false;
+                this.joinGroupDialog = false;
+                this.createGroupDialog = false;
+                this.leaveGroupDialog = false;
+                this.shareDialog = false;
+            },
+            fetchGroupData: function () {
+                this.loadGroup()
+            },
+            createGroup: function () {
+                Api.createGroup(this.token, (res) => {
+                    this.closeDialogs();
+                    this.renameGroup();
+                    this.fetchGroupData();
+                }, (err) => {
+                    console.error(err)
+                });
+            },
+            renameGroup: function () {
+                console.log("Rename to" + this.newName)
+
+                Api.renameGroup(this.token, this.newName, (res) => {
+                    this.closeDialogs();
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
+            },
+            leaveGroup: function () {
+                console.log("leave group")
+                Api.leaveGroup(this.token, (res) => {
+                    this.closeDialogs();
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
+            },
+            joinGroup: function () {
+                console.log("attepmt to join " + this.joinId)
+                Api.joinGroup(this.token, this.joinId, (res) => {
+                    this.closeDialogs();
+                    this.fetchGroupData()
+                }, (err) => {
+                    console.error(err)
+                });
+            },
+            copyShareLinkToClipBoard: function() {
+                if (!navigator.clipboard) {
+                    this.snackbar = fallbackCopyTextToClipboard(this.inviteLink);
+                    return;
+                }
+                navigator.clipboard.writeText(this.inviteLink).then(function() {
+                    this.snackbar = true;
+                    console.log('Async: Copying to clipboard was successful!');
+                }, function(err) {
+                    console.error('Async: Could not copy text: ', err);
+                });
+            },
+            ...mapActions([
+                'loadGroup'
+            ])
+        },
+        created: function () {
+            this.fetchGroupData();
+
+        },
+    }
+
+    function fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        var successful = false;
+        try {
+            successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Fallback: Copying text command was ' + msg);
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+        }
+
+        document.body.removeChild(textArea);
+        return successful;
     }
 </script>
 
