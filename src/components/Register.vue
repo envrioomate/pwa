@@ -71,7 +71,11 @@
                 v => (v && v.length >= 4) || 'Password must be more than 4 characters'
             ],
         }),
-
+        computed: {
+            invite: function() {
+                return this.$route.query.i;
+            }
+        },
         methods: {
             submit() {
                 if (this.$refs.form.validate()) {
@@ -80,7 +84,8 @@
                         screenname: this.name,
                         username: this.email,
                         password: this.password,
-                        confirm_password: this.password2
+                        confirm_password: this.password2,
+                        invite: this.invite
                     }).then((res) => {
                         console.log(res);
                         if(res.status === 200) {
