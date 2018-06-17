@@ -8,7 +8,7 @@
                     <v-text-field
                             v-model="name"
                             :rules="nameRules"
-                            :counter="10"
+                            :counter="255"
                             label="Name"
                             required
                     ></v-text-field>
@@ -31,22 +31,79 @@
                             required
                     ></v-text-field>
 
+                    <v-checkbox
+                            v-model="agreedTos"
+                            :rules="[v => !!v || 'You must agree to continue!']"
+                            required
+                            value
+                    ><span slot="label">Ich habe die <a @click="showTos">allgemeinen Geschäftsbedingunen</a> gelesen und stimme zu.</span>
+                    </v-checkbox>
+
+                    <v-checkbox
+                            v-model="agreedPA"
+                            :rules="[v => !!v || 'You must agree to continue!']"
+                            required
+                            value
+                    ><span slot="label">Ich habe die <a @click="showPa">Datenschutzvereinbarung</a> gelesen und stimme zu.</span>
+                    </v-checkbox>
+
                     <v-btn round block large color="primary"
                            :disabled="!valid"
                            v-on:click="submit"
                     >
-                        submit
+
+                        Registrieren
                     </v-btn>
                 </v-form>
             </v-flex>
         </v-layout>
+
+        <v-dialog
+                v-model="paDialog"
+                fullscreen
+                transition="dialog-bottom-transition"
+                full-width
+        >
+
+            <v-card tile>
+                <v-toolbar card dark color="primary">
+                    <v-btn icon dark @click="dismissPaDialog">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>Datenschutzvereinbarung</v-toolbar-title>
+                </v-toolbar>
+                <legal></legal>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog
+                v-model="tosDialog"
+                fullscreen
+                transition="dialog-bottom-transition"
+                full-width
+        >
+
+            <v-card tile>
+                <v-toolbar card dark color="primary">
+                    <v-btn icon dark @click="dismissTosDialog">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-toolbar-title>Allgemeine Geschäftsbedingungen</v-toolbar-title>
+                </v-toolbar>
+                <tos></tos>
+            </v-card>
+        </v-dialog>
+
     </v-container>
 </template>
 
 <script>
     import axios from 'axios'
+    import Legal from "./Legal.vue";
+    import Tos from "./Tos.vue";
 
     export default {
+        components: {Legal, Tos},
         data: () => ({
             valid: true,
             name: '',
@@ -69,6 +126,12 @@
                 v => !!v || 'Passwortbestätigung wird benötigt',
                 v => (v && v.length >= 4) || 'Passwort muss länger als 4 Zeichen sein'
             ],
+            agreedPA: false,
+            paRead: false,
+            paDialog: false,
+            agreedTos: false,
+            tosRead: false,
+            tosDialog: false
         }),
         computed: {
             invite: function () {
@@ -104,6 +167,24 @@
             },
             clear() {
                 this.$refs.form.reset()
+            },
+            showPa: function (e) {
+                e.preventDefault();
+                this.paDialog = true;
+            },
+            dismissPaDialog: function () {
+                this.agreedPA = false;
+                this.paRead = true;
+                this.paDialog = false;
+            },
+            showTos: function (e) {
+                e.preventDefault();
+                this.tosDialog = true;
+            },
+            dismissTosDialog: function () {
+                this.agreedTos = false;
+                this.tosRead = true;
+                this.tosDialog = false;
             }
         }
     }
