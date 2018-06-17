@@ -17,13 +17,26 @@
                                 </div>
                             </div>
                             <v-chip outline label disabled :color="completed ? 'white' : 'black'">{{startDate}} bis {{endDate}}</v-chip>
+                            <template v-if="scoreData">
+                                <v-progress-linear
+                                        :size="100"
+                                        :width="15"
+                                        :rotate="-90"
+                                        :value="100 * scoreData.score / scoreData.maxScore"
+                                        :color="scoreData.score === scoreData.maxScore ? 'success' : 'info'"
+                                >
+                                </v-progress-linear>
+                                {{ scoreData.score.toFixed(0) + '/' + scoreData.maxScore}} Punkten
+                            </template>
                         </v-flex>
                             <v-flex xs5>
                                 <v-card-media
                                         :src="challenge.imageUrl"
-                                        height="125px"
+                                        height="100%"
                                         contain
                                 ></v-card-media>
+
+
                             </v-flex>
                     </v-layout>
                 </v-container>
@@ -40,7 +53,7 @@
         name: "PastChallengeCard",
         components: {ChallengeTime},
         props: [
-            "challenge", "to"
+            "challenge", "to", "scoreData"
         ],
         computed: {
             currentDate: function () {

@@ -98,6 +98,9 @@ export default {
     followGroup(token, id,onSuccess, onError) {
         doPostAuthorized("/api/auth/follow-wg", token, {id: id}, onSuccess, onError );
     },
+    viewGroup(token, id,onSuccess, onError) {
+        doGetWithParams("/api/auth/completed-challenges", token, {id: id}, onSuccess, onError );
+    },
     unfollowGroup(token, id,onSuccess, onError) {
         doPostAuthorized("/api/auth/unfollow-wg", token, {id: id}, onSuccess, onError );
     },

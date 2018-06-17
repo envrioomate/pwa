@@ -12,7 +12,7 @@
                 <h3>Vergangene Challenges</h3>
                 <v-layout row wrap v-for="(item, index) in pastChallenges" :key="item.id">
 
-                    <past-challenge-card :challenge="item">
+                    <past-challenge-card :challenge="item" :scoreData="scoreDataFor(item)">
                     </past-challenge-card>
                 </v-layout>
             </v-flex>
@@ -40,6 +40,7 @@
                 currentChallenge: 'currentChallenge',
                 group: 'group',
                 completedChallenges: 'completedChallenges',
+                scoreHistory: 'scoreHistory',
                 pastChallenges: 'pastChallenges',
                 token: 'token'
             })
@@ -55,6 +56,21 @@
                 this.loadGroup();
                 this.loadPastChallenges();
 
+            },
+            scoreDataFor: function(challenge) {
+                if (!this.scoreHistory
+                    || !(this.scoreHistory instanceof Array)) return false;
+                const i = this.scoreHistory.filter(scoreData=> scoreData.cId === challenge.id)
+                console.log("score for "+ JSON.stringify(i));
+                if(i) {
+                    return i[0];
+                } else {
+                    return {
+                        cId: this.challenge.id,
+                        score: 0,
+                        maxScore: this.challenge.score
+                    }
+                }
             },
             ...mapActions({
                 loadGroup: 'loadGroup',
