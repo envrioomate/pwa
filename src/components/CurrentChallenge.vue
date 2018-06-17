@@ -1,6 +1,4 @@
 <template>
-
-
     <v-container v-if="currentChallenge">
         <v-layout>
             <v-flex>
@@ -13,10 +11,13 @@
                 </v-container>
                 <ChallengeDetails :challenge="currentChallenge"></ChallengeDetails>
                 <p></p>
+
+                <p></p>
                 <ChallengeProgress v-if="group" :challenge="currentChallenge" :group="group" :completed-challenges="completedChallenges" v-on:completeChallenge="completeCurrentChallenge"></ChallengeProgress>
             </v-flex>
         </v-layout>
     </v-container>
+
     <v-container v-else>
         <v-layout align-center>
             <v-flex align-center>
@@ -40,7 +41,6 @@
     export default {
         name: "CurrentChallenge",
         components: {ChallengeProgress, ChallengeDetails, GroupMemberListEntry},
-
         computed: {
                      ...mapGetters({
                 currentChallenge: 'currentChallenge',
