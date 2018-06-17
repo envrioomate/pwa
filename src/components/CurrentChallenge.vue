@@ -13,7 +13,7 @@
                 </v-container>
                 <ChallengeDetails :challenge="currentChallenge"></ChallengeDetails>
                 <p></p>
-                <ChallengeProgress :challenge="currentChallenge" :group="group" :completed-challenges="completedChallenges" v-on:completeChallenge="completeCurrentChallenge"></ChallengeProgress>
+                <ChallengeProgress v-if="group" :challenge="currentChallenge" :group="group" :completed-challenges="completedChallenges" v-on:completeChallenge="completeCurrentChallenge"></ChallengeProgress>
             </v-flex>
         </v-layout>
     </v-container>
