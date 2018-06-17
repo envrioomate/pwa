@@ -19,10 +19,12 @@
                     <div v-if="!completedCurrentChallenge" class="text-xs-center">
                         <template v-for="(member, index) in group.members">
                             <GroupMemberListEntry :member="member"
-                                                  :showChallengeState="true"></GroupMemberListEntry>
+                                                  :showChallengeState="true"
+                                                  :challenge="challenge"
+                            ></GroupMemberListEntry>
                             <v-divider v-if="index + 1 < group.members.length" :key="index"></v-divider>
                         </template>
-                        <v-btn ripple block round large color="primary" dark @click.native="$emit('completeChallenge')">
+                        <v-btn v-if="!past" ripple block round large color="primary" dark @click.native="$emit('completeChallenge')">
                             Geschafft!
                             <v-icon dark right>check_circle</v-icon>
                         </v-btn>
@@ -43,7 +45,7 @@
     export default {
 
         name: "ChallengeProgress",
-        props: ["challenge", "title", "group", "completedChallenges"],
+        props: ["challenge", "title", "group", "completedChallenges", "past"],
         components: {GroupMemberListEntry},
         computed: {
             completedCurrentChallenge: function () {

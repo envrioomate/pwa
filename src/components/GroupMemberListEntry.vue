@@ -8,7 +8,7 @@
         </v-list-tile-content>
         <template v-if="showChallengeState">
             <v-list-tile-action>
-                <v-icon v-if="completedCurrentChallenge" color="primary">star</v-icon>
+                <v-icon v-if="completedChallenge" color="primary">star</v-icon>
                 <v-icon v-else>star_border</v-icon>
             </v-list-tile-action>
         </template>
@@ -28,16 +28,16 @@
 
     export default {
         name: "GroupMemberListEntry",
-        props: ["member", "showChallengeState"],
+        props: ["member", "showChallengeState", "challenge"],
         computed: {
             isYou: function() {
                 return this.member.screenName === this.screenName;
             },
-            completedCurrentChallenge: function () {
+            completedChallenge: function () {
                 if (!this.member.completedChallenges
                     || !(this.member.completedChallenges instanceof Array)) return false;
                 const i = this.member.completedChallenges.filter(challenge =>
-                    challenge.id === this.currentChallenge.id
+                    challenge.id === (this.challenge ? this.challenge.id : this.currentChallenge.id)
                 ).length;
                 return i > 0;
             },

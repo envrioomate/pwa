@@ -39,7 +39,7 @@
                 <v-tab-item>
                     <v-card>
                         <v-card-text>
-                            <a :href='"http://"+challenge.sources'>{{challenge.sources}}</a>
+                            <a :href='challenge.sources'>{{challenge.sources}}</a>
                         </v-card-text>
                     </v-card>
                 </v-tab-item>

@@ -1,10 +1,13 @@
 {
-  "short_name": "enviroommate",
-  "long_name": "enviroommate pwa",
+  "short_name": "Enviroommate",
+  "long_name": "Enviroommate Web App",
+  "start_url": ".",
   "background_color": "#9bba1e",
+  "description": "",
   "display": "standalone",
   "scope": "/",
   "theme_color": "#9bba1e",
+  "orientation": "portrait-primary",
   "icons": [{
     "src": "static/icon/icon-36.png",
     "sizes": "36x36",

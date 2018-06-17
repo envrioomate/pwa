@@ -2,18 +2,8 @@
     <v-container v-if="currentChallenge">
         <v-layout>
             <v-flex>
-                <v-container>
-                    <v-layout align-center>
-                        <v-flex text-xs-center>
-                            <h3 class="display-3">{{currentChallenge.title}}</h3>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-                <ChallengeDetails :challenge="currentChallenge"></ChallengeDetails>
-                <p></p>
+                <Challenge :challenge="currentChallenge" :title="true" :group="group" :past="false" :completedChallenges="completedChallenges"  v-on:completeChallenge="completeCurrentChallenge"></Challenge>
 
-                <p></p>
-                <ChallengeProgress v-if="group" :challenge="currentChallenge" :group="group" :completed-challenges="completedChallenges" v-on:completeChallenge="completeCurrentChallenge"></ChallengeProgress>
             </v-flex>
         </v-layout>
     </v-container>
@@ -34,13 +24,12 @@
     import {mapActions, mapGetters} from 'vuex'
     import Api from "../api/api";
     import currentChallenge from "../modules/currentChallenge";
-    import GroupMemberListEntry from "./GroupMemberListEntry.vue";
-    import ChallengeDetails from "./ChallengeDetails.vue";
-    import ChallengeProgress from "./ChallengeProgress.vue";
+    import Challenge from "./Challenge.vue";
+
 
     export default {
         name: "CurrentChallenge",
-        components: {ChallengeProgress, ChallengeDetails, GroupMemberListEntry},
+        components: {Challenge},
         computed: {
                      ...mapGetters({
                 currentChallenge: 'currentChallenge',
