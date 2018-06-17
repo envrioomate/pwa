@@ -1,6 +1,6 @@
 <template>
-    <v-container v-if="challenge">
-        <v-layout>
+    <v-container v-if="challenge" class="px-0">
+        <v-layout xs12 >
             <v-flex>
                 <v-container v-if="title">
                     <v-layout align-center>
@@ -11,9 +11,11 @@
                 </v-container>
                 <ChallengeDetails :challenge="challenge" :title="!title"></ChallengeDetails>
                 <p></p>
-
+                <ChallengeTime :challenge="challenge"></ChallengeTime>
                 <p></p>
-                <ChallengeProgress v-if="group"  :challenge="challenge" :group="group" :completed-challenges="completedChallenges" v-on:completeChallenge="completeCurrentChallenge" :past="past"></ChallengeProgress>
+                <ChallengeProgress v-if="group" :challenge="challenge" :group="group"
+                                   :completed-challenges="completedChallenges"
+                                   v-on:completeChallenge="completeCurrentChallenge" :past="past"></ChallengeProgress>
             </v-flex>
         </v-layout>
     </v-container>
@@ -32,28 +34,28 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
-    import Api from "../api/api";
-    import currentChallenge from "../modules/currentChallenge";
     import GroupMemberListEntry from "./GroupMemberListEntry.vue";
     import ChallengeDetails from "./ChallengeDetails.vue";
     import ChallengeProgress from "./ChallengeProgress.vue";
+    import ChallengeTime from "./ChallengeTime.vue";
 
     export default {
         name: "Challenge",
-        components: {ChallengeProgress, ChallengeDetails, GroupMemberListEntry},
+        components: {ChallengeTime, ChallengeProgress, ChallengeDetails, GroupMemberListEntry},
         props: ["challenge", "title", "group", "completedChallenges", "past"],
         computed: {
+
 
         },
         data: () => ({
             tab: null,
-            gradient: 'to top right, rgba(63,181,81, .7), rgba(25,72,32, .7)'
         }),
 
         methods: {
             completeCurrentChallenge: function () {
                 this.$emit('completeChallenge')
             },
+
         },
     }
 </script>
