@@ -106,6 +106,8 @@
                             }, (err) => console.error(err))
                         }
                     })
+                    this.items = [];
+                    this.select = [];
                 }
             },
             removeGroup(group) {
