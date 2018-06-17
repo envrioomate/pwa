@@ -99,7 +99,7 @@
 
 <script>
     import axios from 'axios'
-    import Legal from "./Legal.vue";
+    import Legal from "./PrivacyAgreement.vue";
     import Tos from "./Tos.vue";
 
     export default {
