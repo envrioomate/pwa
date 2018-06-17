@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-card-title><div class="headline">Zeit</div></v-card-title>
+        <v-card-title><div class="headline">{{headerText ? headerText : 'Zeit'}}</div></v-card-title>
         <v-container>
             <v-layout row>
                 <v-flex xs2 class="text-xs-left">
@@ -20,7 +20,7 @@
 <script>
     export default {
         name: "ChallengeTime",
-        props: ["challenge"],
+        props: ["challenge", "headerText"],
         computed: {
             currentDate: function () {
                 let date = new Date(Date.now());

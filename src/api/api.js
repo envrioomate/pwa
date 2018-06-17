@@ -98,6 +98,9 @@ export default {
     followGroup(token, id,onSuccess, onError) {
         doPostAuthorized("/api/auth/follow-wg", token, {id: id}, onSuccess, onError );
     },
+    unfollowGroup(token, id,onSuccess, onError) {
+        doPostAuthorized("/api/auth/unfollow-wg", token, {id: id}, onSuccess, onError );
+    },
     fetchCurrentChallenge(token, onSuccess, onError) {
         doGet("/api/auth/current-challenge", token, onSuccess, onError );
     },

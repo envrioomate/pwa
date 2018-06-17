@@ -196,6 +196,7 @@
                     <v-toolbar-title>WG verlassen</v-toolbar-title>
                 </v-toolbar>
                 <v-card-actions>
+                    <v-spacer></v-spacer>
                     <v-btn round depressed large color="error"
                            @click="leaveGroup"
                     >WG verlassen

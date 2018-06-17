@@ -1,59 +1,69 @@
 <template>
     <v-container fluid>
-		<v-layout align-center>
-            <v-flex align-center>
-					<img src='../assets/Logo_neu_icon.png' />
-                    <h3 class="display-3">Enviroomate</h3>
-			</v-flex>
-		</v-layout>
-        <v-layout row wrap>
-            <v-flex xs12>
-                <v-subheader v-text="'Finde andere WGs:'"></v-subheader>
-            </v-flex>
-            <v-flex xs12 sm8>
-                <v-select
-                        :loading="loading"
-                        :items="items"
-                        :rules="[() => select.length > 0 || 'You must choose at least one']"
-                        :search-input.sync="search"
-                        v-model="select"
-                        label="Team Name"
-                        autocomplete
-                        cache-items
-                        chips
-                        required
-                ></v-select>
-            </v-flex>
-            <v-flex x212 sm4>
-                <v-btn depressed @click="addGroups" :disabled="select.length === 0 ">Hinzuügen</v-btn>
-            </v-flex>
+        <v-flex xs12 sm12>
+            <v-list subheader two-line>
+                <v-subheader inset>Freunde</v-subheader>
+                <template v-for="(friend, index) in friends" >
+                    <FriendListEntry :group="friend" v-on:removeGroup="removeGroup" v-on:viewGroup="viewGroup"></FriendListEntry>
+                    <v-divider v-if="index + 1 < friends.length" :key="index"></v-divider>
+                </template>
+            </v-list>
+        </v-flex>
 
-            <v-flex xs12 sm12>
-                <v-list two-line subheader>
-                    <v-subheader inset>Freunde</v-subheader>
-                    <v-list-tile v-for="item in friends" :key="item.name" @click="">
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                            <v-list-tile-sub-title>{{ item.score }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-btn icon ripple>
-                                <v-icon color="grey lighten-1">info</v-icon>
-                            </v-btn>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                </v-list>
-            </v-flex>
-        </v-layout>
+        <v-btn
+                color="primary"
+                fab
+                fixed
+                bottom
+                right
+                @click.native="addDialog = true">
+            <v-icon>group_add</v-icon>
+        </v-btn>
+
+        <v-dialog
+                v-model="addDialog"
+                transition="dialog-bottom-transition"
+                scrollable
+        >
+            <v-card row wrap>
+                <v-toolbar color="primary">
+                    <v-btn icon dark @click.native="addDialog = false">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+
+                    <v-toolbar-title> Finde andere WGs</v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <v-select
+                            :loading="loading"
+                            :items="items"
+                            :rules="[() => select.length > 0 || 'You must choose at least one']"
+                            :search-input.sync="search"
+                            v-model="select"
+                            label="Team Name"
+                            autocomplete
+                            cache-items
+                            chips
+                            required
+                    ></v-select>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn depressed @click="addGroups" :disabled="select.length === 0 ">Hinzuügen</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-container>
 </template>
 
 <script>
     import Api from "../api/api";
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import FriendListEntry from './FriendListEntry.vue'
 
     export default {
         name: "Friends",
+        components: {FriendListEntry},
         computed: mapGetters({
             token: 'token',
             friends: 'friends'
@@ -64,7 +74,8 @@
                 items: [],
                 search: null,
                 select: [],
-                groups: []
+                groups: [],
+                addDialog: false
             }
         },
         watch: {
@@ -87,6 +98,7 @@
             },
             addGroups() {
                 if (this.select) {
+                    this.addDialog = false;
                     this.items.forEach((name, index) => {
                         if (name === this.select) {
                             Api.followGroup(this.token, this.groups[index].id, (res) => {
@@ -95,6 +107,15 @@
                         }
                     })
                 }
+            },
+            removeGroup(group) {
+                Api.unfollowGroup(this.token, group.id, (res) => {
+                    this.$store.dispatch('loadFriends');
+                }, (err) => console.error(err))
+
+            },
+            viewGroup(group) {
+
             }
         },
         created: function () {
