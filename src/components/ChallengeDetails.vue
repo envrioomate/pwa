@@ -1,19 +1,14 @@
 <template>
-    <v-container fill-height>
-        <v-layout align-center>
-            <v-flex text-xs-center>
-                <h3 class="display-3">{{challenge.title}}</h3>
-            </v-flex>
-        </v-layout>
-    </v-container>
-    <v-card>
+
+    <v-card xs12>
+        <h3 v-if="title" class="display-3 text-xs-center">{{challenge.title}}</h3>
         <v-card-media :src="challenge.imageUrl ? challenge.imageUrl : '/static/default.jpg'"
                       height="300px">
             <v-layout column class="media">
 
             </v-layout>
         </v-card-media>
-        <v-tabs v-model="tab" growr show-arrows>
+        <v-tabs v-model="tab" grow show-arrows>
             <v-tab>Beschreibung</v-tab>
             <v-tab>Pro-Tipp</v-tab>
             <v-tab>CO2</v-tab>
@@ -56,7 +51,12 @@
 <script>
     export default {
         name: "ChallengeDetails",
-        props: ["challenge"]
+        props: ["challenge", "title"],
+        data: () => ({
+            tab: null,
+            gradient: 'to top right, rgba(63,181,81, .7), rgba(25,72,32, .7)'
+        }),
+
     }
 </script>
 
