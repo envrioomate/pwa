@@ -140,29 +140,31 @@
         },
         methods: {
             submit() {
-                console.log("submit");
-                if (this.valid) {
-                    // Native form submission is not yet supported
-                    axios.post('/api/register', {
-                        screenname: this.name,
-                        username: this.email,
-                        password: this.password,
-                        confirm_password: this.password2,
-                        invite: this.invite
-                    }).then((res) => {
-                        console.log(res);
-                        if (res.status === 200) {
-                            axios.post('/api/login', {
-                                username: this.email,
-                                password: this.password
-                            }).then((res) => {
-                                console.log(res);
-                                this.$store.commit('setUserId', res.data.id);
-                                this.$store.commit('setToken', res.data.token);
-                                this.$router.push({name: 'loggedin'})
-                            }).catch((err) => console.log("It broke while logging in", err))
-                        }
-                    }).catch((err) => console.log("It broke while registering", err))
+                if (this.$refs.form.validate()) {
+                    console.log("submit");
+                    if (this.valid) {
+                        // Native form submission is not yet supported
+                        axios.post('/api/register', {
+                            screenname: this.name,
+                            username: this.email,
+                            password: this.password,
+                            confirm_password: this.password2,
+                            invite: this.invite
+                        }).then((res) => {
+                            console.log(res);
+                            if (res.status === 200) {
+                                axios.post('/api/login', {
+                                    username: this.email,
+                                    password: this.password
+                                }).then((res) => {
+                                    console.log(res);
+                                    this.$store.commit('setUserId', res.data.id);
+                                    this.$store.commit('setToken', res.data.token);
+                                    this.$router.push({name: 'loggedin'})
+                                }).catch((err) => console.log("It broke while logging in", err))
+                            }
+                        }).catch((err) => console.log("It broke while registering", err))
+                    }
                 }
             },
             clear() {
