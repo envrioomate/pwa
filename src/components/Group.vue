@@ -16,8 +16,9 @@
                                 </span>
                                 <div>
                                     <v-list>
-                                        <template v-for="(member) in group.members">
+                                        <template v-for="(member, index) in group.members">
                                             <GroupMemberListEntry :member="member" v-on:leaveGroup="leaveGroupDialog = true"></GroupMemberListEntry>
+                                            <v-divider v-if="index + 1 < group.members.length" :key="index"></v-divider>
                                         </template>
                                         <template v-if="group.members.length < 2">
                                             <v-divider></v-divider>
@@ -26,7 +27,7 @@
                                             </v-list-tile>
                                         </template>
                                     </v-list>
-                                    <h3 class="display-2">Score: {{group ? group.score : "placeholder"}}</h3>
+                                    <h3 class="display-2">Score: {{group ? group.score.toFixed(0) : "placeholder"}}</h3>
                                 </div>
                                 <v-fab-transition>
                                     <v-btn

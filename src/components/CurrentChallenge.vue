@@ -9,12 +9,13 @@
             </v-layout>
         </v-container>
         <v-card>
-            <v-card-media :src="currentChallenge.imageUrl ? currentChallenge.imageUrl : '/static/default.jpg'" height="300px">
+            <v-card-media :src="currentChallenge.imageUrl ? currentChallenge.imageUrl : '/static/default.jpg'"
+                          height="300px">
                 <v-layout column class="media">
 
                 </v-layout>
             </v-card-media>
-            <v-tabs v-model="tab" grow>
+            <v-tabs v-model="tab" growr show-arrows>
                 <v-tab>Beschreibung</v-tab>
                 <v-tab>Pro-Tipp</v-tab>
                 <v-tab>CO2</v-tab>
@@ -52,14 +53,43 @@
                 </v-tabs-items>
             </v-tabs>
         </v-card>
-        <div v-if="!completedCurrentChallenge" class="text-xs-center">
-            <v-btn depressed block round large color="primary" dark @click="completeCurrentChallenge()">Geschafft!
-                <v-icon dark right>check_circle</v-icon>
-            </v-btn>
-        </div>
-        <v-alert :value="completedCurrentChallenge" transition="slide-y-transition" type="success">
-            Akutelle Challenge geschafft!
-        </v-alert>
+        <p></p>
+        <v-card> <!-- challenge progress -->
+            <v-container fluid grid-list-lg>
+                <v-layout row>
+                    <v-flex xs12>
+                        <div class="headline">Fortschritt</div>
+                        <div class="text-xs-center">
+                        <v-progress-circular
+                                :size="100"
+                                :width="15"
+                                :rotate="-90"
+                                :value="challengeProgress"
+                                :color="completeCurrentChallenge ? 'success' : 'info'"
+                        >
+                            {{ (challengeProgress * currentChallenge.score / 100).toFixed(0) + '/' +
+                            currentChallenge.score.toFixed(0)}}
+                        </v-progress-circular>
+                        </div>
+                        <div v-if="!completedCurrentChallenge" class="text-xs-center">
+                            <template v-for="(member, index) in group.members">
+                                <GroupMemberListEntry :member="member"
+                                                      :showChallengeState="true"></GroupMemberListEntry>
+                                <v-divider v-if="index + 1 < group.members.length" :key="index"></v-divider>
+                            </template>
+                            <v-btn ripple block round large color="primary" dark @click="completeCurrentChallenge()">
+                                Geschafft!
+                                <v-icon dark right>check_circle</v-icon>
+                            </v-btn>
+                        </div>
+                        <v-alert :value="completedCurrentChallenge" transition="slide-y-transition" type="success">
+                            Akutelle Challenge geschafft!
+                        </v-alert>
+
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-card>
     </v-container>
     <v-container v-else>
         <v-layout align-center>
@@ -76,9 +106,12 @@
     import {mapActions, mapGetters} from 'vuex'
     import Api from "../api/api";
     import currentChallenge from "../modules/currentChallenge";
+    import GroupMemberListEntry from "./GroupMemberListEntry.vue";
 
     export default {
         name: "CurrentChallenge",
+        components: {GroupMemberListEntry},
+
         computed: {
             completedCurrentChallenge: function () {
                 if (!this.completedChallenges
@@ -88,9 +121,23 @@
                 ).length;
                 return i > 0;
             },
+            challengeProgress: function () {
+                let progress = 0;
+                this.group.members.forEach(m => {
+                    console.log("current challenge id " + this.currentChallenge.id)
+                    m.completedChallenges.forEach(c => {
+                        console.log("completed challenge id " + c.id + " by" + m.id);
+                    })
+                    if (m.completedChallenges.some(c => c.id === this.currentChallenge.id)) {
+                        console.log("ping")
+                        progress += 100 / this.group.members.length;
+                    }
+                })
+                return progress;
+            },
             ...mapGetters({
                 currentChallenge: 'currentChallenge',
-                group: 'group',
+                group: 'myGroup',
                 completedChallenges: 'completedChallenges',
                 token: 'token'
             })
