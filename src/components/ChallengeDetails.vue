@@ -2,7 +2,7 @@
 
     <v-card xs12>
         <h3 v-if="title" class="display-3 text-xs-center">{{challenge.title}}</h3>
-        <v-card-media :src="challenge.imageUrl ? challenge.imageUrl : '/static/default.jpg'"
+        <v-card-media :src="imageUrl"
                       height="300px">
             <v-layout column class="media">
 
@@ -56,6 +56,21 @@
             tab: null,
             gradient: 'to top right, rgba(63,181,81, .7), rgba(25,72,32, .7)'
         }),
+        computed: {
+            imageUrl: function() {
+                if (this.challenge.imageUrl) {
+                    if(this.challenge.imageUrl.substring(0,4) === "http") {
+                        return this.challenge.imageUrl;
+                    } else {
+                        let escapedTitle = this.challenge.title.replace(" ", "_") + '.jpg';
+                        console.log(escapedTitle);
+                        return '/images/' + escapedTitle
+                    }
+                } else {
+                   return '/static/default.jpg'
+                }
+            }
+        }
 
     }
 </script>
