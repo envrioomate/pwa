@@ -3,7 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+let FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
     entry: {
@@ -81,6 +82,7 @@ module.exports = {
         new CopyWebpackPlugin([ {from: 'static/manifest.json', to: 'manifest.json'} ],  { debug: 'info' }),
         new CopyWebpackPlugin([ {from: 'static/**/*', to: '.'} ],  { debug: 'info' }),
         new VueLoaderPlugin(),
+		new FaviconsWebpackPlugin('./static/Logo_neu_sq.png'),
     ],
     output: {
         filename: '[name].bundle.js',
