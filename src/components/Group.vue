@@ -29,7 +29,11 @@
                                     </v-list>
                                     <div><h3 class="display-2"><v-icon x-large>nature_people</v-icon>: {{group ? group.score : "placeholder"}}</h3></div>
 									<div>
-										<img src="../assets/Baum/8.png" v-if="group.score > 7000" height="200px"></img>
+										
+										<img src="../assets/Baum/11.png" v-if="group.score > 10000" height="200px"></img>
+										<img src="../assets/Baum/10.png" v-else-if="group.score > 9000" height="200px"></img>
+										<img src="../assets/Baum/9.png" v-else-if="group.score > 8000" height="200px"></img>
+										<img src="../assets/Baum/8.png" v-else-if="group.score > 7000" height="200px"></img>
 										<img src="../assets/Baum/7.png" v-else-if="group.score > 6000" height="200px"></img>
 										<img src="../assets/Baum/6.png" v-else-if="group.score > 5000" height="200px"></img>
 										<img src="../assets/Baum/5.png" v-else-if="group.score > 4000" height="200px"></img>
