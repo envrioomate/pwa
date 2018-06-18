@@ -1,5 +1,5 @@
 <template>
-    <v-container >
+    <v-container v-if="!loading">
         <v-layout >
             <v-flex >
                 <template v-if="hasGroup" >
@@ -16,8 +16,9 @@
                                 </span>
                                 <div>
                                     <v-list>
-                                        <template v-for="(member) in group.members">
+                                        <template v-for="(member, index) in group.members">
                                             <GroupMemberListEntry :member="member" v-on:leaveGroup="leaveGroupDialog = true"></GroupMemberListEntry>
+                                            <v-divider v-if="index + 1 < group.members.length" :key="index"></v-divider>
                                         </template>
                                         <template v-if="group.members.length < 2">
                                             <v-divider></v-divider>
@@ -205,6 +206,7 @@
                     <v-toolbar-title>WG verlassen</v-toolbar-title>
                 </v-toolbar>
                 <v-card-actions>
+                    <v-spacer></v-spacer>
                     <v-btn round depressed large color="error"
                            @click="leaveGroup"
                     >WG verlassen
@@ -222,7 +224,11 @@
             Link in die Zwischenablage kopiert!
             <v-btn flat color="pink" @click.native="snackbar = false">Close</v-btn>
         </v-snackbar>
+    </v-container>
 
+    <v-container v-else>
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
     </v-container>
 </template>
 
@@ -235,6 +241,7 @@
         components: {GroupMemberListEntry},
         data: () => {
             return {
+                loading: false,
                 renameGroupDialog: false,
                 joinGroupDialog: false,
                 createGroupDialog: false,
@@ -296,8 +303,8 @@
                 this.leaveGroupDialog = false;
                 this.shareDialog = false;
             },
-            fetchGroupData: function () {
-                this.loadGroup()
+            fetchGroupData: async function () {
+                await this.loadGroup()
             },
             createGroup: function () {
                 Api.createGroup(this.token, (res) => {
@@ -356,9 +363,10 @@
                 'loadGroup'
             ])
         },
-        created: function () {
-            this.fetchGroupData();
-
+        created: async function () {
+            this.loading = true;
+            await this.fetchGroupData();
+            this.loading = false;
         },
     }
 

@@ -1,66 +1,13 @@
 <template>
-
     <v-container v-if="currentChallenge">
-        <v-container fill-height>
-            <v-layout align-center>
-                <v-flex text-xs-center>
-                    <h3 class="display-3">{{currentChallenge.title}}</h3>
-                </v-flex>
-            </v-layout>
-        </v-container>
-        <v-card>
-            <v-card-media :src="currentChallenge.imageUrl ? currentChallenge.imageUrl : '/static/default.jpg'" height="300px">
-                <v-layout column class="media">
+        <v-layout>
+            <v-flex>
+                <Challenge :challenge="currentChallenge" :title="true" :group="group" :past="false" :completedChallenges="completedChallenges"  v-on:completeChallenge="completeCurrentChallenge"></Challenge>
 
-                </v-layout>
-            </v-card-media>
-            <v-tabs v-model="tab" grow>
-                <v-tab>Beschreibung</v-tab>
-                <v-tab>Pro-Tipp</v-tab>
-                <v-tab>CO2</v-tab>
-                <v-tab>Quellen</v-tab>
-                <v-tabs-slider color="accent"></v-tabs-slider>
-                <v-tabs-items v-model="tab">
-                    <v-tab-item>
-                        <v-card>
-                            <v-card-text>
-                                {{currentChallenge.description}}
-                            </v-card-text>
-                        </v-card>
-                    </v-tab-item>
-                    <v-tab-item>
-                        <v-card>
-                            <v-card-text>
-                                {{currentChallenge.tip}}
-                            </v-card-text>
-                        </v-card>
-                    </v-tab-item>
-                    <v-tab-item>
-                        <v-card>
-                            <v-card-text>
-                                {{currentChallenge.co2_savings}}
-                            </v-card-text>
-                        </v-card>
-                    </v-tab-item>
-                    <v-tab-item>
-                        <v-card>
-                            <v-card-text>
-                                <a :href='"http://"+currentChallenge.sources'>{{currentChallenge.sources}}</a>
-                            </v-card-text>
-                        </v-card>
-                    </v-tab-item>
-                </v-tabs-items>
-            </v-tabs>
-        </v-card>
-        <div v-if="!completedCurrentChallenge" class="text-xs-center">
-            <v-btn depressed block round large color="primary" dark @click="completeCurrentChallenge()">Geschafft!
-                <v-icon dark right>check_circle</v-icon>
-            </v-btn>
-        </div>
-        <v-alert :value="completedCurrentChallenge" transition="slide-y-transition" type="success">
-            Akutelle Challenge geschafft!
-        </v-alert>
+            </v-flex>
+        </v-layout>
     </v-container>
+
     <v-container v-else>
         <v-layout align-center>
             <v-flex align-center>
@@ -70,27 +17,23 @@
         </v-layout>
         Lade...
     </v-container>
+
 </template>
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
     import Api from "../api/api";
     import currentChallenge from "../modules/currentChallenge";
+    import Challenge from "./Challenge.vue";
+
 
     export default {
         name: "CurrentChallenge",
+        components: {Challenge},
         computed: {
-            completedCurrentChallenge: function () {
-                if (!this.completedChallenges
-                    || !(this.completedChallenges instanceof Array)) return false;
-                const i = this.completedChallenges.filter(challenge =>
-                    challenge.id === this.currentChallenge.id
-                ).length;
-                return i > 0;
-            },
-            ...mapGetters({
+                     ...mapGetters({
                 currentChallenge: 'currentChallenge',
-                group: 'group',
+                group: 'myGroup',
                 completedChallenges: 'completedChallenges',
                 token: 'token'
             })

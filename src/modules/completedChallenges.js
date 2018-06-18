@@ -2,11 +2,13 @@ import Api from '../api/api';
 import Challenge from '../api/challenge'
 
 const state = {
-    completedChallenges : null
+    completedChallenges : null,
+    scoreHistory: null,
 }
 
 const getters = {
-    completedChallenges: state => state.completedChallenges
+    completedChallenges: state => state.completedChallenges,
+    scoreHistory: state => state.scoreHistory
 }
 
 const actions = {
@@ -28,7 +30,9 @@ const actions = {
 
 const mutations = {
     setCompletedChallenges(state, data) {
-        state.completedChallenges = data // this is only a great idea if you're in a rush
+        state.completedChallenges = data.completedChallenges // this is only a great idea if you're in a rush
+        state.scoreHistory = data.scoreHistory // this is only a great idea if you're in a rush
+
     }
 }
 

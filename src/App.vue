@@ -111,7 +111,6 @@
                 } else {
                 }
                 nav.general = [
-                    {title: "Hilfe", to: "/help", icon: "help"},
                     {title: "Umfrage", href: "https://www.survio.com/survey/d/Q5A9P9A5A9C2F6Y5K", icon: "grade"},
                     {title: "Kontakt & Impressum", to: "/contact", icon: "mail_outline"},
                 ]
