@@ -31,6 +31,20 @@
                                             </v-list-tile>
                                         </template>
                                     </v-list>
+                                    <div><h3 class="display-2"><v-icon x-large>nature_people</v-icon>: {{group ? group.score : "placeholder"}}</h3></div>
+									<div>
+										<img src="../assets/Baum/11.png" v-if="group.score > 10000" height="200px"></img>
+										<img src="../assets/Baum/10.png" v-else-if="group.score > 9000" height="200px"></img>
+										<img src="../assets/Baum/9.png" v-else-if="group.score > 8000" height="200px"></img>
+										<img src="../assets/Baum/8.png" v-else-if="group.score > 7000" height="200px"></img>
+										<img src="../assets/Baum/7.png" v-else-if="group.score > 6000" height="200px"></img>
+										<img src="../assets/Baum/6.png" v-else-if="group.score > 5000" height="200px"></img>
+										<img src="../assets/Baum/5.png" v-else-if="group.score > 4000" height="200px"></img>
+										<img src="../assets/Baum/4.png" v-else-if="group.score > 3000" height="200px"></img>
+										<img src="../assets/Baum/3.png" v-else-if="group.score > 2000" height="200px"></img>
+										<img src="../assets/Baum/2.png" v-else-if="group.score > 1000" height="200px"></img>
+										<img src="../assets/Baum/1.png" v-else height="200px"></img>
+									</div>
                                 </div>
                                 <v-fab-transition>
                                     <v-btn
@@ -46,6 +60,7 @@
                                     </v-btn>
                                 </v-fab-transition>
                             </v-flex>
+                            <!--
                             <v-flex xs12>
                                 <div>
                                     <img :src="treeFrame" class="resize">
@@ -53,6 +68,7 @@
                                 <h3 class="display-2">Score: {{group ? group.score.toFixed(0) : "placeholder"}}</h3>
 
                             </v-flex>
+                            -->
                         </v-layout>
                     </v-container>
                 </template>

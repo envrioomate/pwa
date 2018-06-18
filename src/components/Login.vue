@@ -1,35 +1,34 @@
 <template>
     <v-container fluid fill-height>
-
-        <v-layout fill-height>
-            <v-flex xs12>
-                <v-form ref="form" v-model="valid" lazy-validation>
-                    <v-text-field
-                            v-model="email"
-                            :rules="emailRules"
-                            label="E-mail"
-                            required
-                    ></v-text-field>
-                    <v-text-field
-                            v-model="password"
-                            :rules="passwordRules"
-                            label="Password"
-                            required
-                    ></v-text-field>
-                    <v-alert :value='loginStatus == "failed"' type="error"      transition="scale-transition"
-                    >
-                        Username or Password not found...
-                    </v-alert>
-                    <v-btn
-                            :disabled="!valid"
-                            @click="login()"
-                    >
-                        submit
-                    </v-btn>
-                    <v-btn @click="clear">clear</v-btn>
-                </v-form>
-            </v-flex>
-        </v-layout>
+			<v-layout>
+				<v-flex xs12>
+					<v-form ref="form" v-model="valid" lazy-validation>
+						<v-text-field
+								v-model="email"
+								:rules="emailRules"
+								label="E-mail"
+								required
+						></v-text-field>
+						<v-text-field
+								v-model="password"
+								:rules="passwordRules"
+								label="Password"
+								required
+						></v-text-field>
+						<v-alert :value='loginStatus == "failed"' type="error"      transition="scale-transition"
+						>
+							Username or Password not found...
+						</v-alert>
+						<v-btn
+								:disabled="!valid"
+								@click="login()"
+						>
+							submit
+						</v-btn>
+						<v-btn @click="clear">clear</v-btn>
+					</v-form>
+				</v-flex>
+			</v-layout>
     </v-container>
 </template>
 

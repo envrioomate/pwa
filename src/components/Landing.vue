@@ -39,13 +39,14 @@
                         </v-btn>
                     </div>
                 </v-form>
-                <v-divider class="my-3"></v-divider>
-                <div>
-                    <v-btn depressed block color="info" to="/register">Registrieren</v-btn>
-                </div>
-                <div>
-                    <v-btn depressed block color="accent" to="/hilfe">Hilfe</v-btn>
-                </div>
+
+				<v-divider class="my-3"></v-divider>
+				<div>
+					<v-btn depressed block color="info" to="/register">Registrieren</v-btn>
+				</div>
+				<div>
+					<v-btn depressed block color="accent" to="/hilfe">Hilfe</v-btn>
+				</div>
 
             </v-flex>
         </v-layout>

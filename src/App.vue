@@ -6,6 +6,7 @@
                 app
         >
             <v-list dense>
+				
                 <template v-if="menu.loggedInWithGroup" v-for="(item, index) in menu.loggedInWithGroup">
                     <v-list-tile :click="item.click" :to="item.to">
                         <v-list-tile-action>
