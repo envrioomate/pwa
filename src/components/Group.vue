@@ -1,14 +1,15 @@
 <template>
     <v-container v-if="!loading">
-        <v-layout >
-            <v-flex >
-                <template v-if="hasGroup" >
+        <v-layout>
+            <v-flex>
+                <template v-if="hasGroup">
                     <v-container grid-list-md text-xs-center>
-                        <v-layout  align-center>
-                            <v-flex align-center fill-height>
+                        <v-layout align-center row wrap>
+                            <v-flex align-center xs12>
                                 <span>
                                     <h3 class="display-2">{{group ? group.name : "placeholder"}}
-                                        <v-btn flat icon color="accent" @click.native="renameGroupDialog = true" class="text-lg-right">
+                                        <v-btn flat icon color="accent" @click.native="renameGroupDialog = true"
+                                               class="text-lg-right">
                                             <v-icon>edit</v-icon>
                                         </v-btn>
                                     </h3>
@@ -17,17 +18,19 @@
                                 <div>
                                     <v-list>
                                         <template v-for="(member, index) in group.members">
-                                            <GroupMemberListEntry :member="member" v-on:leaveGroup="leaveGroupDialog = true"></GroupMemberListEntry>
+                                            <GroupMemberListEntry :member="member"
+                                                                  v-on:leaveGroup="leaveGroupDialog = true"></GroupMemberListEntry>
                                             <v-divider v-if="index + 1 < group.members.length" :key="index"></v-divider>
                                         </template>
                                         <template v-if="group.members.length < 2">
                                             <v-divider></v-divider>
                                             <v-list-tile @click="">
-                                                <v-list-tile-content>Etwas leer hier. Lade Leute in deine WG ein, indem Du den Share-Button drückst. </v-list-tile-content>
+                                                <v-list-tile-content>Etwas leer hier. Lade Leute in deine WG ein, indem
+                                                    Du den Share-Button drückst.
+                                                </v-list-tile-content>
                                             </v-list-tile>
                                         </template>
                                     </v-list>
-                                    <h3 class="display-2">Score: {{group ? group.score.toFixed(0) : "placeholder"}}</h3>
                                 </div>
                                 <v-fab-transition>
                                     <v-btn
@@ -42,6 +45,13 @@
                                         <v-icon>person_add</v-icon>
                                     </v-btn>
                                 </v-fab-transition>
+                            </v-flex>
+                            <v-flex xs12>
+                                <div>
+                                    <img :src="treeFrame" class="resize">
+                                </div>
+                                <h3 class="display-2">Score: {{group ? group.score.toFixed(0) : "placeholder"}}</h3>
+
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -255,10 +265,10 @@
             avatars: function () {
                 return group.members.map((member) => member.screenName.charAt(0))
             },
-            mailSubject: function() {
+            mailSubject: function () {
                 return "Enviroommate";
             },
-            mailBody: function() {
+            mailBody: function () {
                 return "Hi%2C%20" + this.inviteLink + "%20LG";
             },
             colors: function () {
@@ -271,10 +281,16 @@
             },
             inviteLink: function () {
                 if (this.inviteId) {
-                    const inviteLink ="https://enviroommate.org/#/register?i=" + this.inviteId;
+                    const inviteLink = "https://enviroommate.org/#/register?i=" + this.inviteId;
                     this.$emit('shareId', inviteLink);
                     return inviteLink;
                 }
+            },
+            treeFrame: function () {
+                let score = this.group ? this.group.score : 0;
+                let frameCount = 11;
+                let frame = 1 + score / 50;
+                return '/static/baum/' + frame.toFixed(0) + ".png";
             },
             ...mapGetters({
                 hasGroup: 'hasGroup',
@@ -325,7 +341,7 @@
                 });
             },
             joinGroup: function () {
-                if(this.joinId.length > 6) {
+                if (this.joinId.length > 6) {
                     this.joinId = this.joinId.substring(this.joinId.length - 6);
                 }
                 console.log("attepmt to join " + this.joinId);
@@ -337,15 +353,15 @@
                     console.error(err)
                 });
             },
-            copyShareLinkToClipBoard: function() {
+            copyShareLinkToClipBoard: function () {
                 if (!navigator.clipboard) {
                     this.snackbar = fallbackCopyTextToClipboard(this.inviteLink);
                     return;
                 }
-                navigator.clipboard.writeText(this.inviteLink).then(function() {
+                navigator.clipboard.writeText(this.inviteLink).then(function () {
                     this.snackbar = true;
                     console.log('Async: Copying to clipboard was successful!');
-                }, function(err) {
+                }, function (err) {
                     console.error('Async: Could not copy text: ', err);
                 });
             },
@@ -381,5 +397,7 @@
 </script>
 
 <style scoped>
-
+    img.resize {
+        height: 300px;
+    }
 </style>
