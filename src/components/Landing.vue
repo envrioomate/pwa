@@ -24,7 +24,7 @@
                         Benutzername oder Passwort falsch!
                     </v-alert>
                     <div>
-                        <v-btn block round depressed large color="primary"
+                        <v-btn class="landingBtn" round depressed large color="primary"
                                :disabled="!valid"
                                @click="login()"
                         >
@@ -42,10 +42,10 @@
 
 				<v-divider class="my-3"></v-divider>
 				<div>
-					<v-btn depressed block color="info" to="/register">Registrieren</v-btn>
+					<v-btn depressed class="landingBtn" color="info" to="/register">Registrieren</v-btn>
 				</div>
 				<div>
-					<v-btn depressed block color="accent" to="/hilfe">Hilfe</v-btn>
+					<v-btn depressed class="landingBtn" color="accent" to="/hilfe">Hilfe</v-btn>
 				</div>
 
             </v-flex>

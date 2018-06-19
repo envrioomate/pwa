@@ -9,17 +9,17 @@
 						Hallo und moin <b>{{screenName}}</b>!
 					</div>
 					<div>
-                    <v-btn round depressed large color="primary" to="/group">
+                    <v-btn round depressed large color="primary" to="/group" class="landingBtn">
                         Team
                     </v-btn>
 					</div>
 					<div></div>
 					<div>
-                    <v-btn round depressed large color="primary" to="/current_challenge">
+                    <v-btn round depressed large color="primary" to="/current_challenge" class="landingBtn">
                         Challenge
                     </v-btn>
 					</div><div>
-                    <v-btn round depressed large color="primary" to="/friends">
+                    <v-btn round depressed large color="primary" to="/friends" class="landingBtn">
                         Freunde
                     </v-btn>
 					</div>
