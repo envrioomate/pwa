@@ -1,14 +1,24 @@
 <template>
     <v-container>
-        <v-layout align-center row wrap>
-            <v-flex align-center xs12 text-xs-center id="header">
-                <img src='../assets/Logo_neu_icon.png'/>
-                <h4 class="display-1">Willkommen bei</h4>
-                <h2 class="display-3">Enviroomate</h2>
-            </v-flex>
-            </v-flex>
-            <v-flex xs12 sm6 mx-2 id="copy-text">
-                <div>Wir von Enviroommate haben uns überlegt, wie wir alle etwas für unser Klima tun können. Besonders
+			<section>
+        <v-parallax src="/static/default.jpg" height="250">
+          <v-layout
+            column
+            align-center
+            justify-center
+            class="white--text"
+          >
+            <img src="../assets/Logo_neu_icon.png">
+            <h1 class="white--text mb-2 display-1 text-xs-center display-1 summer parallaxText">Wilkommen bei</h1>
+            <h2 class="white--text mb-3 text-xs-center display-3 summer parallaxText">Enviroomate</h2>
+          </v-layout>
+        </v-parallax>
+			</section>
+			
+			<section>
+        <v-layout align-center column wrap mt-4 mb-4>
+            <v-flex xs12 id="copy-text">
+                <div class="centerText">Wir von Enviroommate haben uns überlegt, wie wir alle etwas für unser Klima tun können. Besonders
                     wichtig war uns dabei, dass wir am Ende auch Lust haben die Tipps umzusetzen. Deshalb findet ihr auf
                     unserer Seite jede Woche eine neue Challenge, die ihr zusammen mit eurer WG erledigen könnt. Dabei
                     gibt es immer eine Aufgabe für die von euch, die einfach gerne einmal in der Woche etwas neues,
@@ -18,10 +28,14 @@
                     habt oder euch anders einbringen wollt, schreibt uns gerne eine Mail! Wir freuen uns über alle neuen
                     Enviroommates 💚
                 </div>
-								
-            </v-flex>
-            <v-flex xs12 sm5 align-center text-xs-center mx-2 id="login">
+						</v-flex>
+				</v-layout>
+			</section>
+			
+			<section>
+				
 							<v-parallax src="/static/default.jpg">
+        <v-layout column align-center justify-center>
                 <v-card>
                     <v-card-text>
                     <v-alert :value='resetTokenSendAlert' type="info">Wir haben dir eine E-Mail gesendet</v-alert>
@@ -69,9 +83,10 @@
                     </div>
                     </v-card-text>
                 </v-card>
-							</v-parallax>
-            </v-flex>
         </v-layout>
+				
+							</v-parallax>
+			</section>
 
         <v-dialog
                 v-model="pwResetDialog"
