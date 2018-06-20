@@ -31,6 +31,7 @@
                             required
                     ></v-text-field>
 
+                    <!--
                     <v-checkbox
                             v-model="agreedTos"
                             :rules="[v => !!v || 'You must agree to continue!']"
@@ -38,7 +39,7 @@
                             value
                     ><span slot="label">Ich habe die <a @click="showTos">allgemeinen Geschäftsbedingunen</a> gelesen und stimme zu.</span>
                     </v-checkbox>
-
+                    -->
                     <v-checkbox
                             v-model="agreedPA"
                             :rules="[v => !!v || 'You must agree to continue!']"
