@@ -31,21 +31,9 @@
                                             </v-list-tile>
                                         </template>
                                     </v-list>
-                                    
+
                                 </div>
-                                <v-fab-transition>
-                                    <v-btn
-                                            color="primary"
-                                            v-model="hasGroup"
-                                            fab
-                                            fixed
-                                            bottom
-                                            right
-                                            @click.native="shareDialog = true"
-                                    >
-                                        <v-icon>person_add</v-icon>
-                                    </v-btn>
-                                </v-fab-transition>
+
                             </v-flex>
 
 							<v-flex xs12>
@@ -70,6 +58,19 @@
                                 <h3 class="display-2">Score: {{group ? group.score.toFixed(0) : "placeholder"}}</h3>
                             </v-flex>
                         </v-layout>
+                        <v-fab-transition>
+                            <v-btn
+                                    color="primary"
+                                    v-model="hasGroup"
+                                    fab
+                                    fixed
+                                    bottom
+                                    right
+                                    @click.native="shareDialog = true"
+                            >
+                                <v-icon>person_add</v-icon>
+                            </v-btn>
+                        </v-fab-transition>
                     </v-container>
                 </template>
                 <template v-else>

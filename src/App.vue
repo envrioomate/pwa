@@ -96,7 +96,7 @@
                             {title: "Meine WG", to: "/group", icon: "group"},
                             {title: "Gefolgte WGs", to: "/friends", icon: "favorite"},
                             {title: "Wochen Challenge", to: "/current_challenge", icon: "grade"},
-                            {title: "Challengeverlauf", to: "/past_challenges", icon: "grade"},
+                            {title: "Challengeverlauf", to: "/past_challenges", icon: "done_all"},
 
                         ]
                     } else {
@@ -112,7 +112,7 @@
                 } else {
                 }
                 nav.general = [
-                    {title: "Umfrage", href: "https://www.survio.com/survey/d/Q5A9P9A5A9C2F6Y5K", icon: "grade"},
+                    {title: "Umfrage", href: "https://www.survio.com/survey/d/Q5A9P9A5A9C2F6Y5K", icon: "launch"},
                     {title: "Kontakt & Impressum", to: "/contact", icon: "mail_outline"},
                 ]
                 return nav;
