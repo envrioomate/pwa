@@ -6,9 +6,10 @@
                 <h4 class="display-1">Willkommen bei</h4>
                 <h2 class="display-3">Enviroomate</h2>
             </v-flex>
+            </v-flex>
             <v-flex xs12 sm6 mx-2 id="copy-text">
-                <div>Wir von Enviroommate haben uns überlegt, wie wir etwas für unser Klima tun können und besonders
-                    wichtig war uns dabei, dass wir am Ende auch Bock haben die Tipps umzusetzen. Deshalb findet ihr auf
+                <div>Wir von Enviroommate haben uns überlegt, wie wir alle etwas für unser Klima tun können. Besonders
+                    wichtig war uns dabei, dass wir am Ende auch Lust haben die Tipps umzusetzen. Deshalb findet ihr auf
                     unserer Seite jede Woche eine neue Challenge, die ihr zusammen mit eurer WG erledigen könnt. Dabei
                     gibt es immer eine Aufgabe für die von euch, die einfach gerne einmal in der Woche etwas neues,
                     lustiges mit ihren lieben Mitbewohnern unternehmen wollen und dann noch einen Zusatztipp für die
@@ -17,8 +18,10 @@
                     habt oder euch anders einbringen wollt, schreibt uns gerne eine Mail! Wir freuen uns über alle neuen
                     Enviroommates 💚
                 </div>
+								
             </v-flex>
             <v-flex xs12 sm5 align-center text-xs-center mx-2 id="login">
+							<v-parallax src="/static/default.jpg">
                 <v-card>
                     <v-card-text>
                     <v-alert :value='resetTokenSendAlert' type="info">Wir haben dir eine E-Mail gesendet</v-alert>
@@ -66,6 +69,7 @@
                     </div>
                     </v-card-text>
                 </v-card>
+							</v-parallax>
             </v-flex>
         </v-layout>
 
