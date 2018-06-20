@@ -21,6 +21,7 @@
                     <v-text-field
                             v-model="password"
                             :rules="passwordRules"
+                            type="password"
                             label="Passwort"
                             required
                     ></v-text-field>
@@ -28,6 +29,7 @@
                             v-model="password2"
                             :rules="password2Rules"
                             label="Passwort bestätigen"
+                            type="password"
                             required
                     ></v-text-field>
 
