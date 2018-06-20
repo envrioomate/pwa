@@ -12,6 +12,7 @@
                         label="Push-Nachrichten erhalten"
                         v-model="isRegistered"
                         color="primary"
+                        v-on:change="toggleSubscription"
                 ></v-switch>
                 <v-flex xs12>
                     <v-btn @click="testPushNotification">Test Notification</v-btn>
@@ -33,20 +34,6 @@
                 isRegistered: false
             }
         },
-        watch: {
-            isRegistered: async function (newValue) {
-                let isSub = await this.isSubscribedNotification()
-                if (newValue && !isSub) {
-
-                    this.subscribeNotifications();
-                }
-                if (!newValue && isSub) {
-
-                    this.unsubscribeNotifications()
-
-                }
-            }
-        },
         methods: {
             subscribeNotifications: function () {
                 console.log("register sw from settings")
@@ -62,9 +49,11 @@
                         });
                         console.log("SW registered: ", registration);
                         this.registration = registration;
+                        console.log("registered push notification endpoint")
+                        this.isRegistered = true;
                         registration.pushManager.getSubscription().then(s => {
                             Api.registerPushNotifications(s, (res) => {
-                                console.log("registered push notification endpoint")
+
                             }, (err) => console.error(err))
                         })
                     }).catch(registrationError => {
@@ -81,8 +70,10 @@
                         const vapidPublicKey = await response.text();
                         const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
                         registration.pushManager.getSubscription().then(s => {
-                            s.unsubscribe();
-                            console.log("SW unsubscribed: ", registration);
+                            s.unsubscribe().then(()=> {
+                                this.isRegistered = false;
+                                console.log("SW unsubscribed: ", registration);
+                            }).catch((err) => console.error(err));
 
                         });
                     }).catch(registrationError => {
@@ -93,7 +84,9 @@
             isSubscribedNotification: async function () {
                 let r = await navigator.serviceWorker.getRegistration();
                 let s = await r.pushManager.getSubscription();
-                return !!s
+                console.log(r);
+                console.log(s ? s : "no s")
+                return !!r
             },
             testPushNotification: async function () {
 
@@ -112,11 +105,19 @@
                     }),
                 });
             },
-            created: async function () {
-                let isSub = await this.isSubscribedNotification();
-                this.isRegistered = isSub;
+            toggleSubscription: async function (bool) {
+                console.log(bool)
+                if(bool) {
+                    this.subscribeNotifications();
+                } else {
+                    this.unsubscribeNotifications();
+                }
             }
+        },
+        created: async function () {
+            this.isRegistered = await this.isSubscribedNotification();
         }
+
     }
 
     function urlBase64ToUint8Array(base64String) {
