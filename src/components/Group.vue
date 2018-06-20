@@ -202,7 +202,7 @@
                     <a :href="'mailto:?subject='+ mailSubject +'&amp;body='+ mailBody">
                         <v-icon>email</v-icon>
                     </a>
-                    <v-btn outline @click="copyShareLinkToClipBoard">
+                    <v-btn small outline @click="copyShareLinkToClipBoard" class="linkButton">
                         {{inviteLink}}
                     </v-btn>
                 </v-card-actions>
