@@ -42,12 +42,20 @@
                     <v-flex>
                         <v-card-actions class="title mb-3" to="/legal">
                             <v-spacer></v-spacer>
-
                             <v-btn round depressed outline color="info" to="/legal">
                                 Datenschutz
                             </v-btn>
                         </v-card-actions>
+                    </v-flex>
+                </v-layout>
+            </v-card>
 
+            <v-card fill-height>
+                <v-layout align-center>
+                    <v-flex>
+                        <v-card-text>
+                            Diese App ist open source, besucht uns doch auf <a href="https://github.com/envrioomate/"> GitHub </a>
+                        </v-card-text>
 
                     </v-flex>
                 </v-layout>
