@@ -1,15 +1,15 @@
 <template>
     <v-card>
         <v-card-title><div class="headline">{{headerText ? headerText : 'Zeit'}}</div></v-card-title>
-        <v-container>
-            <v-layout row>
-                <v-flex xs2 class="text-xs-left">
+        <v-container fluid grid-list-xs>
+            <v-layout row wrap>
+                <v-flex xs4 sm2 class="text-xs-left">
                     <v-chip outline label disabled color="black">{{startDate}}</v-chip>
                 </v-flex>
-                <v-flex align-center xs8>
+                <v-flex align-center xs4 sm8>
                     <v-progress-linear class="my-2" v-model="challengeProgress" height="27" :color="progressColor"></v-progress-linear>
                 </v-flex>
-                <v-flex xs2 class="text-xs-right">
+                <v-flex xs4 sm2  class="text-xs-right">
                     <v-chip outline label disabled color="black">{{endDate}}</v-chip>
                 </v-flex>
             </v-layout>
@@ -60,5 +60,6 @@
 </script>
 
 <style scoped>
+
 
 </style>
