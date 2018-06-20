@@ -47,16 +47,9 @@
                                     </v-btn>
                                 </v-fab-transition>
                             </v-flex>
-                            <!--
-                            <v-flex xs12>
-                                <div>
-                                    <img :src="treeFrame" class="resize">
-                                </div>
-                                <h3 class="display-2">Score: {{group ? group.score.toFixed(0) : "placeholder"}}</h3>
 
-                            </v-flex>
-                            -->
 							<v-flex xs12>
+                                <!--
                                 <div>
 									<img v-if="group.score > 500" src="static/baum/11.png" class="resize">
 									<img v-else-if="group.score > 450" src="static/baum/10.png" class="resize">
@@ -69,6 +62,10 @@
 									<img v-else-if="group.score > 100" src="static/baum/3.png" class="resize">
 									<img v-else-if="group.score > 50" src="static/baum/2.png" class="resize">
                                     <img v-else src="static/baum/1.png" class="resize">
+                                </div>
+                                -->
+                                <div>
+                                    <img :src="treeFrame" class="resize">
                                 </div>
                                 <h3 class="display-2">Score: {{group ? group.score.toFixed(0) : "placeholder"}}</h3>
                             </v-flex>
@@ -306,9 +303,10 @@
                 }
             },
             treeFrame: function () {
+                const scorePerFrame = 75;
                 let score = this.group ? this.group.score : 0;
                 let frameCount = 11;
-                let frame = 1 + score / 50;
+                let frame = 1 + score / 75;
                 return '/static/baum/' + frame.toFixed(0) + ".png";
             },
             ...mapGetters({
