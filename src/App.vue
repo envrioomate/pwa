@@ -79,6 +79,7 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
+    import Api from './api/api'
     export default {
         name: 'App',
         data: () => ({
@@ -133,7 +134,7 @@
             }
         },
         created: function () {
-
+            Api.setContext(this);
         }
     }
 

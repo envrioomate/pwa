@@ -58,17 +58,17 @@
                             -->
 							<v-flex xs12>
                                 <div>
-									<img v-if="group.score > 500" src="../assets/baum/11.png" class="resize">
-									<img v-else-if="group.score > 450" src="../assets/baum/10.png" class="resize">
-									<img v-else-if="group.score > 400" src="../assets/baum/9.png" class="resize">
-									<img v-else-if="group.score > 350" src="../assets/baum/8.png" class="resize">
-									<img v-else-if="group.score > 300" src="../assets/baum/7.png" class="resize">
-									<img v-else-if="group.score > 250" src="../assets/baum/6.png" class="resize">
-									<img v-else-if="group.score > 200" src="../assets/baum/5.png" class="resize">
-									<img v-else-if="group.score > 150" src="../assets/baum/4.png" class="resize">
-									<img v-else-if="group.score > 100" src="../assets/baum/3.png" class="resize">
-									<img v-else-if="group.score > 50" src="../assets/baum/2.png" class="resize">
-                                    <img v-else src="../assets/baum/1.png" class="resize">
+									<img v-if="group.score > 500" src="static/baum/11.png" class="resize">
+									<img v-else-if="group.score > 450" src="static/baum/10.png" class="resize">
+									<img v-else-if="group.score > 400" src="static/baum/9.png" class="resize">
+									<img v-else-if="group.score > 350" src="static/baum/8.png" class="resize">
+									<img v-else-if="group.score > 300" src="static/baum/7.png" class="resize">
+									<img v-else-if="group.score > 250" src="static/baum/6.png" class="resize">
+									<img v-else-if="group.score > 200" src="static/baum/5.png" class="resize">
+									<img v-else-if="group.score > 150" src="static/baum/4.png" class="resize">
+									<img v-else-if="group.score > 100" src="static/baum/3.png" class="resize">
+									<img v-else-if="group.score > 50" src="static/baum/2.png" class="resize">
+                                    <img v-else src="static/baum/1.png" class="resize">
                                 </div>
                                 <h3 class="display-2">Score: {{group ? group.score.toFixed(0) : "placeholder"}}</h3>
                             </v-flex>

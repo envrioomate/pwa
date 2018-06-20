@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const verbose = true;
+var appContext = null;
 
 function doPostAuthorized(url, token, data, onSuccess, onError) {
     axios.post(url,data,{
@@ -17,7 +18,11 @@ function doPostAuthorized(url, token, data, onSuccess, onError) {
                 "Authorization": "Bearer " + token
             }, data: data
         }), err)
+        if (err.response.status >= 400 && err.response.status < 500) {
+            appContext.$router.push({name: 'Index'});
+        }
         onError(err)
+
     })
 }
 
@@ -42,6 +47,9 @@ function doGetWithParams( url, token = "" , data, onSuccess, onError ) {
         onSuccess(res);
     }).catch((err) => {
         if (verbose) console.log("GET to " + url, err)
+        if (err.response.status >= 400 && err.response.status < 500) {
+            appContext.$router.push({name: 'Index'});
+        }
         onError(err)
     })
 }
@@ -56,11 +64,17 @@ function doGet( url, token = "", onSuccess, onError ) {
         onSuccess(res);
     }).catch((err) => {
         if (verbose) console.log("GET to " + url, err)
+        if (err.response.status >= 400 && err.response.status < 500) {
+            appContext.$router.push({name: 'Index'});
+        }
         onError(err)
     })
 }
 
 export default {
+    setContext(context) {
+        appContext = context
+    },
     login(email, password, onSuccess, onError) {
         let userdata = {
             username: email,
