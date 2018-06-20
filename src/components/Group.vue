@@ -328,7 +328,9 @@
                 this.shareDialog = false;
             },
             fetchGroupData: async function () {
-                await this.loadGroup()
+                await this.loadGroup();
+                this.loadProfile();
+
             },
             createGroup: function () {
                 Api.createGroup(this.token, (res) => {
@@ -353,7 +355,8 @@
                 console.log("leave group")
                 Api.leaveGroup(this.token, (res) => {
                     this.closeDialogs();
-                    this.fetchGroupData()
+                    this.fetchGroupData();
+
                 }, (err) => {
                     console.error(err)
                 });
@@ -384,7 +387,8 @@
                 });
             },
             ...mapActions([
-                'loadGroup'
+                'loadGroup',
+                'loadProfile'
             ])
         },
         created: async function () {
