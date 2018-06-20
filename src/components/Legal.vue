@@ -1,6 +1,8 @@
 <template>
     <v-container>
+        <!--
         <Tos></Tos>
+        -->
         <PrivacyAgreement></PrivacyAgreement>
     </v-container>
 </template>
