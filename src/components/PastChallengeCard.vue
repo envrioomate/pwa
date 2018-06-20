@@ -31,7 +31,7 @@
                         </v-flex>
                             <v-flex xs5>
                                 <v-card-media
-                                        :src="challenge.imageUrl"
+                                        :src="imageUrl"
                                         height="100%"
                                         contain
                                 ></v-card-media>
@@ -89,6 +89,19 @@
                 if (this.challengeProgress > 90) color = 'error';
                 if (this.challengeProgress > 100) color = 'info';
                 return color;
+            },
+            imageUrl: function() {
+                if (this.challenge.imageUrl) {
+                    if(this.challenge.imageUrl.substring(0,4) === "http") {
+                        return this.challenge.imageUrl;
+                    } else {
+                        let escapedTitle = this.challenge.title.replace(" ", "_") + '.jpg';
+                        console.log(escapedTitle);
+                        return '/images/' + escapedTitle
+                    }
+                } else {
+                    return '/static/default.jpg'
+                }
             },
 
             ...mapGetters({
